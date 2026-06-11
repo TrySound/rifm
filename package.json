@@ -140,6 +140,10 @@
   "peerDependencies": {
     "react": ">=16.8"
   },
+  "homepage": "https://github.com/realadvisor/rifm#readme",
+  "bugs": {
+    "url": "https://github.com/realadvisor/rifm/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/istarkov/rifm.git"
