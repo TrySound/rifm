@@ -1,6 +1,10 @@
 {
   "name": "rifm",
   "version": "0.12.1",
+  "homepage": "https://github.com/realadvisor/rifm",
+  "bugs": {
+    "url": "https://github.com/realadvisor/rifm/issues"
+  },
   "description": "Tiny react input formatter and mask",
   "author": "istarkov",
   "license": "MIT",
