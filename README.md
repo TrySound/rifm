@@ -3,16 +3,16 @@
 Is a tiny (≈ 800b) component (and hook) to transform any input component
 into formatted or masked input.
 
-[Demo](https://realadvisor.github.io/rifm)
+[Demo](https://trysound.github.io/rifm)
 
 ## Highlights
 
 - Requires React 16.8+
 - Dependency free
 - Tiny (≈ 800b)
-- Supports any [input](https://realadvisor.github.io/rifm#material-ui).
-- Can [mask](https://realadvisor.github.io/rifm#date-format) input,
-  [format](https://realadvisor.github.io/rifm#number-format) and [more](https://realadvisor.github.io/rifm#case-enforcement)
+- Supports any [input](https://trysound.github.io/rifm#material-ui).
+- Can [mask](https://trysound.github.io/rifm#date-format) input,
+  [format](https://trysound.github.io/rifm#number-format) and [more](https://trysound.github.io/rifm#case-enforcement)
 - Small readable source
 - flow + typescript definitions
 
@@ -147,4 +147,4 @@ These will be passed into the `children` render prop for the Rifm component as n
 | **value**    | string                 |         | A formatted string value to pass as a prop to your input element |
 | **onChange** | SyntheticEvent => void |         | The change handler to pass as a prop to your input element       |
 
-See the [Demo](https://realadvisor.github.io/rifm) there are a lot of examples there.
+See the [Demo](https://trysound.github.io/rifm) there are a lot of examples there.
