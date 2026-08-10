@@ -75,7 +75,7 @@ const Index = () => {
           RIFM - React Input Format & Mask
           <Link
             target="_blank"
-            href="https://github.com/istarkov/rifm"
+            href="https://github.com/TrySound/rifm"
             style={{ marginLeft: 16 }}
           >
             <GithubIcon size={40} />
@@ -91,8 +91,8 @@ const Index = () => {
       <H2 id="enforcement">Enforcement</H2>
 
       <EmbedCodesandbox
-        title="istarkob/rifm: enforcement"
-        href="github/istarkov/rifm/tree/gh-pages/codesandboxes/enforcement"
+        title="TrySound/rifm: enforcement"
+        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/enforcement"
       />
 
       <H2 id="number-format">Number format</H2>
@@ -103,8 +103,8 @@ const Index = () => {
       </P>
 
       <EmbedCodesandbox
-        title="istarkob/rifm: number-format"
-        href="github/istarkov/rifm/tree/gh-pages/codesandboxes/number-format"
+        title="TrySound/rifm: number-format"
+        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/number-format"
       />
 
       <H2 id="date-format">Date format</H2>
@@ -120,8 +120,8 @@ const Index = () => {
       </P>
 
       <EmbedCodesandbox
-        title="istarkob/rifm: date-format"
-        href="github/istarkov/rifm/tree/gh-pages/codesandboxes/date-format"
+        title="TrySound/rifm: date-format"
+        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/date-format"
       />
 
       <H2 id="phone-format">Phone format</H2>
@@ -135,8 +135,8 @@ const Index = () => {
       </P>
 
       <EmbedCodesandbox
-        title="istarkob/rifm: phone-format"
-        href="github/istarkov/rifm/tree/gh-pages/codesandboxes/phone-format"
+        title="TrySound/rifm: phone-format"
+        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/phone-format"
       />
 
       <H2 id="material-ui">Format Material UI text field</H2>
@@ -144,8 +144,8 @@ const Index = () => {
       <P>It can work with 3rd party Inputs without pain</P>
 
       <EmbedCodesandbox
-        title="istarkob/rifm: material-ui"
-        href="github/istarkov/rifm/tree/gh-pages/codesandboxes/material-ui"
+        title="TrySound/rifm: material-ui"
+        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/material-ui"
       />
     </Container>
   );

@@ -3,6 +3,10 @@
   "version": "0.12.1",
   "description": "Tiny react input formatter and mask",
   "author": "istarkov",
+  "maintainers": [
+    "istarkov",
+    "TrySound"
+  ],
   "license": "MIT",
   "main": "dist/rifm.cjs.js",
   "module": "dist/rifm.esm.js",
@@ -142,7 +146,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/istarkov/rifm.git"
+    "url": "https://github.com/TrySound/rifm.git"
   },
   "resolutions": {
     "react": "~16.8.0",
