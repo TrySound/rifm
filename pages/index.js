@@ -92,7 +92,7 @@ const Index = () => {
 
       <EmbedCodesandbox
         title="TrySound/rifm: enforcement"
-        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/enforcement"
+        href="github/TrySound/rifm/tree/main/docs/codesandboxes/enforcement"
       />
 
       <H2 id="number-format">Number format</H2>
@@ -104,7 +104,7 @@ const Index = () => {
 
       <EmbedCodesandbox
         title="TrySound/rifm: number-format"
-        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/number-format"
+        href="github/TrySound/rifm/tree/main/docs/codesandboxes/number-format"
       />
 
       <H2 id="date-format">Date format</H2>
@@ -121,7 +121,7 @@ const Index = () => {
 
       <EmbedCodesandbox
         title="TrySound/rifm: date-format"
-        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/date-format"
+        href="github/TrySound/rifm/tree/main/docs/codesandboxes/date-format"
       />
 
       <H2 id="phone-format">Phone format</H2>
@@ -136,7 +136,7 @@ const Index = () => {
 
       <EmbedCodesandbox
         title="TrySound/rifm: phone-format"
-        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/phone-format"
+        href="github/TrySound/rifm/tree/main/docs/codesandboxes/phone-format"
       />
 
       <H2 id="material-ui">Format Material UI text field</H2>
@@ -145,7 +145,7 @@ const Index = () => {
 
       <EmbedCodesandbox
         title="TrySound/rifm: material-ui"
-        href="github/TrySound/rifm/tree/gh-pages/codesandboxes/material-ui"
+        href="github/TrySound/rifm/tree/main/docs/codesandboxes/material-ui"
       />
     </Container>
   );
