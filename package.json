@@ -19,7 +19,7 @@
     "build:flow": "echo \"// @flow\n\nexport * from '../src'\" > dist/rifm.cjs.js.flow",
     "build": "rimraf dist && yarn build:code && yarn build:flow",
     "dev": "NODE_ICU_DATA=`yarn -s run node-full-icu-path` next dev",
-    "jest": "NODE_ICU_DATA=`yarn -s run node-full-icu-path` jest",
+    "jest": "NODE_ICU_DATA=`node -e \"const icu = require('full-icu'); if (icu.haveDat()) process.stdout.write(icu.datPath())\"` jest",
     "test": "eslint --ignore-path .gitignore --ignore-pattern docs ./ && flow check && yarn test:ts && yarn jest",
     "test:ts": "tsc",
     "copy-sandbox-examples": "mkdir -p ./docs/codesandboxes && find ./pages -type d -mindepth 1 -maxdepth 1 -exec cp -R \\{\\} ./docs/codesandboxes \\;",
