@@ -20,11 +20,11 @@
     "build": "rimraf dist && yarn build:code && yarn build:flow",
     "dev": "NODE_ICU_DATA=`yarn -s run node-full-icu-path` next dev",
     "jest": "NODE_ICU_DATA=`yarn -s run node-full-icu-path` jest",
-    "test": "eslint --ignore-path .gitignore ./ && flow check && yarn test:ts && yarn jest",
+    "test": "eslint --ignore-path .gitignore --ignore-pattern docs ./ && flow check && yarn test:ts && yarn jest",
     "test:ts": "tsc",
-    "copy-sandbox-examples": "mkdir -p ./out/codesandboxes && find ./pages -type d -mindepth 1 -maxdepth 1 -exec cp -R \\{\\} ./out/codesandboxes \\;",
-    "export": "rimraf ./out && next build && NODE_ICU_DATA=`yarn -s run node-full-icu-path` next export && yarn copy-sandbox-examples",
-    "deploy": "yarn export && gh-pages -d out",
+    "copy-sandbox-examples": "mkdir -p ./docs/codesandboxes && find ./pages -type d -mindepth 1 -maxdepth 1 -exec cp -R \\{\\} ./docs/codesandboxes \\;",
+    "export": "rimraf ./docs ./.next && NODE_OPTIONS=--openssl-legacy-provider next build && next export -o docs && yarn copy-sandbox-examples && touch ./docs/.nojekyll",
+    "deploy": "yarn export",
     "prepublishOnly": "yarn test && yarn build"
   },
   "babel": {
@@ -125,7 +125,6 @@
     "eslint-plugin-react": "^7.20.0",
     "flow-bin": "^0.109.0",
     "full-icu": "^1.3.0",
-    "gh-pages": "^1.2.0",
     "gzip-size": "^5.1.1",
     "husky": "^4.2.1",
     "jest": "^26.0.1",
