@@ -1,6 +1,3 @@
-# Путин Убийца
-
-
 # RIFM - React Input Format & Mask
 
 Is a tiny (≈ 800b) component (and hook) to transform any input component
@@ -151,7 +148,3 @@ These will be passed into the `children` render prop for the Rifm component as n
 | **onChange** | SyntheticEvent => void |         | The change handler to pass as a prop to your input element       |
 
 See the [Demo](https://realadvisor.github.io/rifm) there are a lot of examples there.
-
-## Thanks
-
-[@TrySound](https://github.com/TrySound) for incredible help and support on this
