@@ -1,25 +1,23 @@
-/* @flow */
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Rifm } from 'rifm';
-import { TextField } from '@material-ui/core';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Rifm } from "rifm";
+import { TextField } from "@material-ui/core";
 
 const integerAccept = /\d+/g;
 
-const parseInteger = string => (string.match(integerAccept) || []).join('');
+const parseInteger = (value: string) => (value.match(integerAccept) || []).join("");
 
-const formatInteger = string => {
-  const parsed = parseInteger(string);
+const formatInteger = (value: string) => {
+  const parsed = parseInteger(value);
   const number = Number.parseInt(parsed, 10);
   if (Number.isNaN(number)) {
-    return '';
+    return "";
   }
-  return number.toLocaleString('en');
+  return number.toLocaleString("en");
 };
 
 const Example = () => {
-  const [number, setNumber] = React.useState('');
+  const [number, setNumber] = React.useState("");
 
   return (
     <div style={{ padding: 16 }}>
@@ -40,8 +38,8 @@ const Example = () => {
   );
 };
 
-if (typeof document !== 'undefined') {
-  const root = document.getElementById('root');
+if (typeof document !== "undefined") {
+  const root = document.getElementById("root");
   if (root) {
     ReactDOM.render(<Example />, root);
   }
