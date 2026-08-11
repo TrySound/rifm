@@ -18,9 +18,6 @@ jobs:
       fail-fast: false
       matrix:
         node:
-          - '8'
-          - '12'
-          - '16'
           - '20'
           - '24'
           - '26'
@@ -34,6 +31,6 @@ jobs:
       - name: Install Yarn
         run: npm install --global yarn@1.22.22
       - name: Install dependencies
-        run: yarn install --frozen-lockfile ${{ matrix.node == '8' && '--ignore-engines' || '' }}
+        run: yarn install --frozen-lockfile
       - name: Test
-        run: ${{ matrix.node == '8' && 'yarn jest' || 'yarn test' }}
+        run: yarnt test
