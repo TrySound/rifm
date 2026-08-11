@@ -1,3 +1,4 @@
+import { it, test } from "vitest";
 import { formatFixedPointNumber, formatFloatingPointNumber, formatPhone } from "./format";
 import { createExec } from "./utils/exec";
 

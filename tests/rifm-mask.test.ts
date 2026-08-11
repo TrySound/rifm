@@ -1,3 +1,4 @@
+import { test } from "vitest";
 import { dateFormat } from "./format";
 import { createExec } from "./utils/exec";
 

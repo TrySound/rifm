@@ -1,11 +1,12 @@
-/** @jest-environment node */
+/** @vitest-environment node */
 
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
+import { expect, test, vi } from "vitest";
 import { Rifm } from "../src";
 
 test("does not warn about layout effects during server rendering", () => {
-  const consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+  const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
   try {
     const html = ReactDOMServer.renderToString(
