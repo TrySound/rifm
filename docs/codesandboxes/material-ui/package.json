@@ -1,9 +1,0 @@
-{
-  "description": "Rifm material-ui example",
-  "dependencies": {
-    "@material-ui/core": "^4.0.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "rifm": "0.10.0"
-  }
-}

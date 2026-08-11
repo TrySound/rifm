@@ -1,6 +1,7 @@
 *.log
 node_modules
 dist
+docs
 .vscode
 .next
 out

@@ -1,8 +1,0 @@
-{
-  "description": "Rifm number format example",
-  "dependencies": {
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "rifm": "0.10.0"
-  }
-}

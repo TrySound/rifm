@@ -36,6 +36,9 @@ importers:
       '@rollup/plugin-replace':
         specifier: ^2.3.2
         version: 2.3.2(rollup@2.10.8)
+      '@types/node':
+        specifier: 10.12.18
+        version: 10.12.18
       '@types/react':
         specifier: 16.7.18
         version: 16.7.18

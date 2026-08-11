@@ -40,7 +40,7 @@
     "pre-commit": "pnpm exec nano-staged"
   },
   "nano-staged": {
-    "*.{js,md,ts,tsx}": "oxfmt --write"
+    "*.{md,ts,tsx}": "oxfmt --write"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -51,6 +51,7 @@
     "@material-ui/styles": "^4.0.0",
     "@rollup/plugin-babel": "^5.0.2",
     "@rollup/plugin-replace": "^2.3.2",
+    "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "alea": "^0.0.9",
     "babel-core": "^7.0.0-bridge.0",
