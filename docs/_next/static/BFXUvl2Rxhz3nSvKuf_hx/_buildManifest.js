@@ -1,1 +1,0 @@
-self.__BUILD_MANIFEST = (function(a){return {"/":[a],"/index":[a],"/material-ui":[a]}}("static\u002Fchunks\u002F2805ebd9884c940e6903fca851cce1b739ecdcb1.10505a09296a3f8072cd.js"));self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
