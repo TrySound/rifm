@@ -1,6 +1,7 @@
 {
   "name": "rifm",
   "version": "0.12.1",
+  "packageManager": "pnpm@10.34.5",
   "description": "Tiny react input formatter and mask",
   "author": "istarkov",
   "maintainers": [
@@ -17,15 +18,16 @@
   "scripts": {
     "build:code": "rollup -c",
     "build:flow": "echo \"// @flow\n\nexport * from '../src'\" > dist/rifm.cjs.js.flow",
-    "build": "rimraf dist && yarn build:code && yarn build:flow",
-    "dev": "NODE_ICU_DATA=`yarn -s run node-full-icu-path` next dev",
+    "build": "rimraf dist && pnpm run build:code && pnpm run build:flow",
+    "dev": "NODE_ICU_DATA=`pnpm exec node-full-icu-path` next dev",
     "jest": "NODE_ICU_DATA=`node -e \"const icu = require('full-icu'); if (icu.haveDat()) process.stdout.write(icu.datPath())\"` jest",
-    "test": "eslint --ignore-path .gitignore --ignore-pattern docs ./ && flow check && yarn test:ts && yarn jest",
+    "test": "eslint --ignore-path .gitignore --ignore-pattern docs ./ && flow check && pnpm run test:ts && pnpm run jest",
     "test:ts": "tsc",
     "copy-sandbox-examples": "mkdir -p ./docs/codesandboxes && find ./pages -type d -mindepth 1 -maxdepth 1 -exec cp -R \\{\\} ./docs/codesandboxes \\;",
-    "export": "rimraf ./docs ./.next && NODE_OPTIONS=--openssl-legacy-provider next build && next export -o docs && yarn copy-sandbox-examples && touch ./docs/.nojekyll",
-    "deploy": "yarn export",
-    "prepublishOnly": "yarn test && yarn build"
+    "export": "rimraf ./docs ./.next && NODE_OPTIONS=--openssl-legacy-provider next build && next export -o docs && pnpm run copy-sandbox-examples && touch ./docs/.nojekyll",
+    "deploy": "pnpm run export",
+    "prepare": "husky",
+    "prepublishOnly": "pnpm test && pnpm run build"
   },
   "babel": {
     "presets": [
@@ -33,11 +35,6 @@
       "@babel/flow",
       "@babel/react"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,md,ts,tsx}": [
@@ -111,6 +108,7 @@
     "@material-ui/styles": "^4.0.0",
     "@rollup/plugin-babel": "^5.0.2",
     "@rollup/plugin-replace": "^2.3.2",
+    "@types/react": "16.7.18",
     "@typescript-eslint/parser": "^1.9.0",
     "alea": "^0.0.9",
     "babel-core": "^7.0.0-bridge.0",
@@ -126,7 +124,7 @@
     "flow-bin": "^0.109.0",
     "full-icu": "^1.3.0",
     "gzip-size": "^5.1.1",
-    "husky": "^4.2.1",
+    "husky": "^9.1.7",
     "jest": "^26.0.1",
     "libphonenumber-js": "^1.2.15",
     "lint-staged": "^10.0.7",
@@ -146,10 +144,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TrySound/rifm.git"
-  },
-  "resolutions": {
-    "react": "~16.8.0",
-    "react-dom": "~16.8.0"
   },
   "typings": "./src/index.d.ts"
 }
