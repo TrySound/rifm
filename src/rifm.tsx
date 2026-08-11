@@ -1,52 +1,45 @@
-/* @flow */
+import * as React from "react";
 
-import * as React from 'react';
+type InputElement = HTMLInputElement | HTMLTextAreaElement;
 
-type Args = {|
-  value: string,
-  onChange: string => void,
-  format: (str: string) => string,
-  mask?: boolean,
-  replace?: string => string,
-  append?: string => string,
-  accept?: RegExp,
-|};
+export interface RifmArgs {
+  value: string;
+  onChange: (str: string) => void;
+  format: (str: string) => string;
+  mask?: boolean;
+  replace?: (str: string) => string;
+  append?: (str: string) => string;
+  accept?: RegExp;
+}
 
-type RenderProps = {|
-  value: string,
-  onChange: (
-    evt: SyntheticInputEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void,
-|};
+export interface RifmRenderArgs<E> {
+  value: string;
+  onChange: React.ChangeEventHandler<E>;
+}
 
-type Props = {|
-  ...Args,
-  children: RenderProps => React.Node,
-|};
+export interface RifmProps<E> extends RifmArgs {
+  children: (args: RifmRenderArgs<E>) => React.ReactNode;
+}
 
-export const useRifm = (props: Args): RenderProps => {
-  const [, refresh] = React.useReducer(c => c + 1, 0);
-  const valueRef = React.useRef(null);
+type PendingInput = [string, InputElement, boolean, boolean, boolean];
+
+export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): RifmRenderArgs<E> => {
+  const [, refresh] = React.useReducer((count: number, _action: void) => count + 1, 0);
+  const valueRef = React.useRef<PendingInput | null>(null);
   const { replace, append } = props;
-  const userValue = replace
-    ? replace(props.format(props.value))
-    : props.format(props.value);
+  const userValue = replace ? replace(props.format(props.value)) : props.format(props.value);
 
   // state of delete button see comments below about inputType support
   const isDeleleteButtonDownRef = React.useRef(false);
 
-  const onChange = (
-    evt: SyntheticInputEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    if (process.env.NODE_ENV !== 'production') {
-      if (evt.target.type === 'number') {
-        console.error(
-          'Rifm does not support input type=number, use type=tel instead.'
-        );
+  const onChange = ((evt: React.ChangeEvent<InputElement>) => {
+    if (process.env.NODE_ENV !== "production") {
+      if (evt.target.type === "number") {
+        console.error("Rifm does not support input type=number, use type=tel instead.");
         return;
       }
-      if (evt.target.type === 'date') {
-        console.error('Rifm does not support input type=date.');
+      if (evt.target.type === "date") {
+        console.error("Rifm does not support input type=date.");
         return;
       }
     }
@@ -61,14 +54,14 @@ export const useRifm = (props: Args): RenderProps => {
       userValue === props.format(eventValue), // isNoOperation
     ];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       const formattedEventValue = props.format(eventValue);
       if (
         eventValue !== formattedEventValue &&
         eventValue.toLowerCase() === formattedEventValue.toLowerCase()
       ) {
         console.warn(
-          'Case enforcement does not work with format. Please use replace={value => value.toLowerCase()} instead'
+          "Case enforcement does not work with format. Please use replace={value => value.toLowerCase()} instead",
         );
       }
     }
@@ -77,12 +70,12 @@ export const useRifm = (props: Args): RenderProps => {
     // that allows us to calculate right cursor position after formatting (see getCursorPosition)
     // then we format new value and call props.onChange with masked/formatted value
     // and finally we are able to set cursor position into right place
-    refresh();
-  };
+    refresh(undefined);
+  }) as React.ChangeEventHandler<E>;
 
   // React prints warn on server in non production mode about useLayoutEffect usage
   // in both cases it's noop
-  if (process.env.NODE_ENV === 'production' || typeof window !== 'undefined') {
+  if (process.env.NODE_ENV === "production" || typeof window !== "undefined") {
     React.useLayoutEffect(() => {
       if (valueRef.current == null) return;
 
@@ -96,25 +89,23 @@ export const useRifm = (props: Args): RenderProps => {
       ] = valueRef.current;
       valueRef.current = null;
 
+      const selectionStart = input.selectionStart == null ? 0 : input.selectionStart;
+
       // this usually occurs on deleting special symbols like ' here 123'123.00
       // in case of isDeleleteButtonDown cursor should move differently vs backspace
       const deleteWasNoOp = isDeleleteButtonDown && isNoOperation;
 
-      const valueAfterSelectionStart = eventValue.slice(input.selectionStart);
+      const valueAfterSelectionStart = eventValue.slice(selectionStart);
 
-      const acceptedCharIndexAfterDelete = valueAfterSelectionStart.search(
-        props.accept || /\d/g
-      );
+      const acceptedCharIndexAfterDelete = valueAfterSelectionStart.search(props.accept || /\d/g);
 
       const charsToSkipAfterDelete =
         acceptedCharIndexAfterDelete !== -1 ? acceptedCharIndexAfterDelete : 0;
 
       // Create string from only accepted symbols
-      const clean = str => (str.match(props.accept || /\d/g) || []).join('');
+      const clean = (str: string) => (str.match(props.accept || /\d/g) || []).join("");
 
-      const valueBeforeSelectionStart = clean(
-        eventValue.substr(0, input.selectionStart)
-      );
+      const valueBeforeSelectionStart = clean(eventValue.substr(0, selectionStart));
 
       // trying to find cursor position in formatted value having knowledge about valueBeforeSelectionStart
       // This works because we assume that format doesn't change the order of accepted symbols.
@@ -124,15 +115,14 @@ export const useRifm = (props: Args): RenderProps => {
       // calling getCursorPosition("1'2'3'4") will give us position after 3, 1'2'3|'4
       // so for formatting just this function to determine cursor position after formatting is enough
       // with masking we need to do some additional checks see `mask` below
-      const getCursorPosition = val => {
+      const getCursorPosition = (val: string) => {
         let start = 0;
         let cleanPos = 0;
 
         for (let i = 0; i !== valueBeforeSelectionStart.length; ++i) {
           let newPos = val.indexOf(valueBeforeSelectionStart[i], start) + 1;
 
-          let newCleanPos =
-            clean(val).indexOf(valueBeforeSelectionStart[i], cleanPos) + 1;
+          let newCleanPos = clean(val).indexOf(valueBeforeSelectionStart[i], cleanPos) + 1;
 
           // this skips position change if accepted symbols order was broken
           // For example fixes edge case with fixed point numbers:
@@ -158,9 +148,7 @@ export const useRifm = (props: Args): RenderProps => {
         const c = clean(eventValue.substr(start))[0];
         start = eventValue.indexOf(c, start);
 
-        eventValue = `${eventValue.substr(0, start)}${eventValue.substr(
-          start + 1
-        )}`;
+        eventValue = `${eventValue.substr(0, start)}${eventValue.substr(start + 1)}`;
       }
 
       let formattedValue = props.format(eventValue);
@@ -168,7 +156,7 @@ export const useRifm = (props: Args): RenderProps => {
       if (
         append != null &&
         // cursor at the end
-        input.selectionStart === eventValue.length &&
+        selectionStart === eventValue.length &&
         !isNoOperation
       ) {
         if (isSizeIncreaseOperation) {
@@ -177,7 +165,7 @@ export const useRifm = (props: Args): RenderProps => {
           // If after delete last char is special character and we use append
           // delete it too
           // was: "12-3|" backspace pressed, then should be "12|"
-          if (clean(formattedValue.slice(-1)) === '') {
+          if (clean(formattedValue.slice(-1)) === "") {
             formattedValue = formattedValue.slice(0, -1);
           }
         }
@@ -187,7 +175,7 @@ export const useRifm = (props: Args): RenderProps => {
 
       if (userValue === replacedValue) {
         // if nothing changed for formatted value, just refresh so userValue will be used at render
-        refresh();
+        refresh(undefined);
       } else {
         props.onChange(replacedValue);
       }
@@ -203,7 +191,7 @@ export const useRifm = (props: Args): RenderProps => {
           props.mask != null &&
           (isSizeIncreaseOperation || (isDeleleteButtonDown && !deleteWasNoOp))
         ) {
-          while (formattedValue[start] && clean(formattedValue[start]) === '') {
+          while (formattedValue[start] && clean(formattedValue[start]) === "") {
             start += 1;
           }
         }
@@ -221,23 +209,23 @@ export const useRifm = (props: Args): RenderProps => {
     // backspace or delete was called in some situations
     // firefox track https://bugzilla.mozilla.org/show_bug.cgi?id=1447239
     const handleKeyDown = (evt: KeyboardEvent) => {
-      if (evt.code === 'Delete') {
+      if (evt.code === "Delete") {
         isDeleleteButtonDownRef.current = true;
       }
     };
 
     const handleKeyUp = (evt: KeyboardEvent) => {
-      if (evt.code === 'Delete') {
+      if (evt.code === "Delete") {
         isDeleleteButtonDownRef.current = false;
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 
@@ -247,8 +235,9 @@ export const useRifm = (props: Args): RenderProps => {
   };
 };
 
-export const Rifm = (props: Props) => {
-  const renderProps = useRifm((props: any));
+interface RifmComponent {
+  <E = InputElement>(props: RifmProps<E>): React.ReactElement<any> | null;
+}
 
-  return props.children(renderProps);
-};
+export const Rifm: RifmComponent = (props) =>
+  props.children(useRifm(props)) as React.ReactElement<any> | null;

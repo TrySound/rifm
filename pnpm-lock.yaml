@@ -18,12 +18,12 @@ importers:
       '@babel/preset-env':
         specifier: ^7.9.6
         version: 7.9.6(@babel/core@7.9.6)
-      '@babel/preset-flow':
-        specifier: ^7.9.0
-        version: 7.9.0(@babel/core@7.9.6)
       '@babel/preset-react':
         specifier: ^7.9.4
         version: 7.9.4(@babel/core@7.9.6)
+      '@babel/preset-typescript':
+        specifier: ^7.9.0
+        version: 7.9.0(@babel/core@7.9.6)
       '@material-ui/core':
         specifier: ^4.0.0
         version: 4.0.0(react-dom@16.8.2(react@16.8.2))(react@16.8.2)
@@ -33,15 +33,27 @@ importers:
       '@rollup/plugin-babel':
         specifier: ^5.0.2
         version: 5.0.2(@babel/core@7.9.6)(rollup@2.10.8)
+      '@rollup/plugin-node-resolve':
+        specifier: ^7.1.3
+        version: 7.1.3(rollup@2.10.8)
       '@rollup/plugin-replace':
         specifier: ^2.3.2
         version: 2.3.2(rollup@2.10.8)
+      '@types/jest':
+        specifier: ^25.2.3
+        version: 25.2.3
       '@types/node':
         specifier: 10.12.18
         version: 10.12.18
       '@types/react':
         specifier: 16.7.18
         version: 16.7.18
+      '@types/react-dom':
+        specifier: ^16.9.8
+        version: 16.9.25(@types/react@16.7.18)
+      '@types/react-test-renderer':
+        specifier: ^16.9.2
+        version: 16.9.12
       alea:
         specifier: ^0.0.9
         version: 0.0.9
@@ -57,9 +69,6 @@ importers:
       emotion:
         specifier: ^10.0.17
         version: 10.0.17
-      flow-bin:
-        specifier: ^0.109.0
-        version: 0.109.0
       full-icu:
         specifier: ^1.3.0
         version: 1.3.0
@@ -321,11 +330,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-syntax-flow@7.8.3':
-    resolution: {integrity: sha512-innAx3bUbA0KSYj2E2MNFSn9hiCeowOFLxlsuhXzw8hMQnzkDomUr9QCD7E9VF60NmnG1sNTuuv6Qf4f8INYsg==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/plugin-syntax-json-strings@7.8.3':
     resolution: {integrity: sha512-lY6kdGpWHvjoe2vk4WrAapEuBR69EMxZl+RoGRhrFGNYVK8mOPAW8VfbT/ZgrFbXlDNiiaxQnAtgVCZ6jv30EA==}
     peerDependencies:
@@ -423,11 +427,6 @@ packages:
 
   '@babel/plugin-transform-exponentiation-operator@7.8.3':
     resolution: {integrity: sha512-zwIpuIymb3ACcInbksHaNcR12S++0MDLKkiqXHl3AzpgdKlFNhog+z/K0+TGW+b0w5pgTq4H6IwV/WhxbGYSjQ==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-flow-strip-types@7.9.0':
-    resolution: {integrity: sha512-7Qfg0lKQhEHs93FChxVLAvhBshOPQDtJUTVHr/ZwQNRccCm4O9D79r9tVSoV8iNwjP1YgfD+e/fgHcPkN1qEQg==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
@@ -576,11 +575,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/preset-flow@7.9.0':
-    resolution: {integrity: sha512-88uSmlshIrlmPkNkEcx3UpSZ6b8n0UGBq0/0ZMZCF/uxAW0XIAUuDHBhIOAh0pvweafH4RxOwi/H3rWhtqOYPA==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/preset-modules@0.1.3':
     resolution: {integrity: sha512-Ra3JXOHBq2xd56xSF7lMKXdjBn3T772Y1Wet3yWnkDly9zHvJki029tAFzvAAK5cf4YV3yoxuP61crYRol6SVg==}
     peerDependencies:
@@ -693,6 +687,10 @@ packages:
   '@jest/transform@26.0.1':
     resolution: {integrity: sha512-pPRkVkAQ91drKGbzCfDOoHN838+FSbYaEAvBXvKuWeeRRUD8FjwXkqfUNUZL6Ke48aA/1cqq/Ni7kVMCoqagWA==}
     engines: {node: '>= 10.14.2'}
+
+  '@jest/types@25.5.0':
+    resolution: {integrity: sha512-OXD0RgQ86Tu3MazKo8bnrkDRaDXXMGUqd+kTtLtK1Zb7CRzQcaSRPPPV37SvYTdevXEBVxe0HXylEjs8ibkmCw==}
+    engines: {node: '>= 8.3'}
 
   '@jest/types@26.0.1':
     resolution: {integrity: sha512-IbtjvqI9+eS1qFnOIEL7ggWmT+iK/U+Vde9cGWtYb/b6XgKb3X44ZAe/z9YZzoAAZ/E92m0DqrilF934IGNnQA==}
@@ -873,6 +871,12 @@ packages:
       '@babel/core': ^7.0.0
       rollup: ^1.20.0||^2.0.0
 
+  '@rollup/plugin-node-resolve@7.1.3':
+    resolution: {integrity: sha512-RxtSL3XmdTAE2byxekYLnx+98kEUOrPHF/KRVjLH+DEIHy6kjIw7YINQzn+NXiH/NTrQLAwYs0GWB+csWygA9Q==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0
+
   '@rollup/plugin-replace@2.3.2':
     resolution: {integrity: sha512-KEEL7V2tMNOsbAoNMKg91l1sNXBDoiP31GFlqXVOuV5691VQKzKBh91+OKKOG4uQWYqcFskcjFyh1d5YnZd0Zw==}
     peerDependencies:
@@ -920,6 +924,9 @@ packages:
   '@types/istanbul-reports@1.1.1':
     resolution: {integrity: sha512-UpYjBi8xefVChsCoBpKShdxTllC9pwISirfoZsUa2AAdQg/Jd2KQGtSbw+ya7GPo7x/wAPlH6JBhKhAsXUEZNA==}
 
+  '@types/jest@25.2.3':
+    resolution: {integrity: sha512-JXc1nK/tXHiDhV55dvfzqtmP4S3sy3T3ouV2tkViZgxY/zeUkcpQcQPGRlgF4KmWzWW5oiWYSZwtCB+2RsE4Fw==}
+
   '@types/node@10.12.18':
     resolution: {integrity: sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==}
 
@@ -935,11 +942,22 @@ packages:
   '@types/q@1.5.4':
     resolution: {integrity: sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==}
 
+  '@types/react-dom@16.9.25':
+    resolution: {integrity: sha512-ZK//eAPhwft9Ul2/Zj+6O11YR6L4JX0J2sVeBC9Ft7x7HFN7xk7yUV/zDxqV6rjvqgl6r8Dq7oQImxtyf/Mzcw==}
+    peerDependencies:
+      '@types/react': ^16.0.0
+
+  '@types/react-test-renderer@16.9.12':
+    resolution: {integrity: sha512-RJ4jeg32v2h1izOZ3gES/zQhQOwi6BEnZW890pmAuf3yVSfDm0wOR42YiWFiuSJJRyRykNaXEzis74+y3Ac9HQ==}
+
   '@types/react-transition-group@2.9.1':
     resolution: {integrity: sha512-1usq4DRUVBFnxc9KGJAlJO9EpQrLZGDDEC8wDOn2+2ODSyudYo8FiIzPDRaX/hfQjHqGeeoNaNdA2bj0l35hZQ==}
 
   '@types/react@16.7.18':
     resolution: {integrity: sha512-Tx4uu3ppK53/iHk6VpamMP3f3ahfDLEVt3ZQc8TFm30a1H3v9lMsCntBREswZIW/SKrvJjkb3Hq8UwO6GREBng==}
+
+  '@types/resolve@0.0.8':
+    resolution: {integrity: sha512-auApPaJf3NPfe18hSoJkp8EbZzer2ISk7o8mCC3M9he/a04+gbMF97NkpD2S8riMGvm4BMRI59/SZQSaLTKpsQ==}
 
   '@types/stack-utils@1.0.1':
     resolution: {integrity: sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==}
@@ -1311,6 +1329,10 @@ packages:
   buffer@4.9.1:
     resolution: {integrity: sha512-DNK4ruAqtyHaN8Zne7PkBTO+dD1Lr0YfTduMqlIyjvQIoztBkUxrvL+hKeLW8NXFKHOq/2upkxuoS9znQ9bW9A==}
     deprecated: This version of 'buffer' is out-of-date. You must update to v4.9.2 or newer
+
+  builtin-modules@3.3.0:
+    resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
+    engines: {node: '>=6'}
 
   builtin-status-codes@3.0.0:
     resolution: {integrity: sha512-HpGFw18DgFWlncDfjTa2rcQ4W88O1mC8e8yZ2AvQY5KDaktSTwo+KRf6nHK6FRI5FyRyb/5T6+TSxfP7QyGsmQ==}
@@ -1734,6 +1756,10 @@ packages:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
     engines: {node: '>=8'}
 
+  diff-sequences@25.2.6:
+    resolution: {integrity: sha512-Hq8o7+6GaZeoFjtpgvRBUknSXNeJiCx7V9Fr94ZMljNiCr9n9L8H8aJqgWOQiDDGdyn29fRNcDdRVJ5fdyihfg==}
+    engines: {node: '>= 8.3'}
+
   diff-sequences@26.0.0:
     resolution: {integrity: sha512-JC/eHYEC3aSS0vZGjuoc4vHA0yAQTzhQQldXMeMF+JlxLGJlCO38Gma82NV9gk1jGFz8mDzUMeaKXvjRRdJ2dg==}
     engines: {node: '>= 10.14.2'}
@@ -2037,11 +2063,6 @@ packages:
 
   flatted@2.0.2:
     resolution: {integrity: sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==}
-
-  flow-bin@0.109.0:
-    resolution: {integrity: sha512-tpcMTpAGIRivYhFV3KJq+zHI2HzcXo8MoGe9pXS4G/UZuey2Faq/e8/gdph2WF0erRlML5hmwfwiq7v9c25c7w==}
-    engines: {node: '>=0.10.0'}
-    hasBin: true
 
   flush-write-stream@1.0.3:
     resolution: {integrity: sha512-calZMC10u0FMUqoiunI2AiGIIUtUIvifNwkHhNupZH4cbNnW1Itkoh/Nf5HFYmDrwWPjrUxpkZT0KhuCq0jmGw==}
@@ -2444,6 +2465,9 @@ packages:
   is-in-browser@1.1.3:
     resolution: {integrity: sha512-FeXIBgG/CPGd/WUxuEyvgGTEfwiG9Z4EKGxjNMRqviiIIfsmgrpnHLffEDdwUHqNva1VEW91o3xBT/m8Elgl9g==}
 
+  is-module@1.0.0:
+    resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==}
+
   is-number@3.0.0:
     resolution: {integrity: sha512-4cboCqIpliH+mAvFNegjZQ4kgKc3ZUhQVr3HvWbSh5q3WH2v82ct+T2Y1hdU5Gdtorx/cLifQjqCbL7bpznLTg==}
     engines: {node: '>=0.10.0'}
@@ -2555,6 +2579,10 @@ packages:
     resolution: {integrity: sha512-9mWKx2L1LFgOXlDsC4YSeavnblN6A4CPfXFiobq+YYLaBMymA/SczN7xYTSmLaEYHZOcB98UdoN4m5uNt6tztg==}
     engines: {node: '>= 10.14.2'}
 
+  jest-diff@25.5.0:
+    resolution: {integrity: sha512-z1kygetuPiREYdNIumRpAHY6RXiGmp70YHptjdaxTWGmA085W3iCnXNx0DhflK3vwrKmrRWyY1wUpkPMVxMK7A==}
+    engines: {node: '>= 8.3'}
+
   jest-diff@26.0.1:
     resolution: {integrity: sha512-odTcHyl5X+U+QsczJmOjWw5tPvww+y9Yim5xzqxVl/R1j4z71+fHW4g8qu1ugMmKdFdxw+AtQgs5mupPnzcIBQ==}
     engines: {node: '>= 10.14.2'}
@@ -2574,6 +2602,10 @@ packages:
   jest-environment-node@26.0.1:
     resolution: {integrity: sha512-4FRBWcSn5yVo0KtNav7+5NH5Z/tEgDLp7VRQVS5tCouWORxj+nI+1tOLutM07Zb2Qi7ja+HEDoOUkjBSWZg/IQ==}
     engines: {node: '>= 10.14.2'}
+
+  jest-get-type@25.2.6:
+    resolution: {integrity: sha512-DxjtyzOHjObRM+sM1knti6or+eOgcGU4xVSb2HNP1TqO4ahsT+rqZg+nyqHWJSvWgKC5cG3QjGFBqxLghiF/Ig==}
+    engines: {node: '>= 8.3'}
 
   jest-get-type@26.0.0:
     resolution: {integrity: sha512-zRc1OAPnnws1EVfykXOj19zo2EMw5Hi6HLbFCSjpuJiXtOWAYIjNsHVSbpQ8bDX7L5BGYGI8m+HmKdjHYFF0kg==}
@@ -3449,6 +3481,10 @@ packages:
     resolution: {integrity: sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==}
     engines: {node: '>=0.10.0'}
 
+  pretty-format@25.5.0:
+    resolution: {integrity: sha512-kbo/kq2LQ/A/is0PQwsEHM7Ca6//bGPPvU6UnsdDRSKTWxT/ru/xb88v4BJf6a69H+uTytOEsTusT9ksd/1iWQ==}
+    engines: {node: '>= 8.3'}
+
   pretty-format@26.0.1:
     resolution: {integrity: sha512-SWxz6MbupT3ZSlL0Po4WF/KujhQaVehijR2blyRDCzk9e45EaYMVhMBn49fnRuHxtkSpXTes1GxNpVmH86Bxfw==}
     engines: {node: '>= 10.14.2'}
@@ -3519,7 +3555,6 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.5.2:
@@ -4708,6 +4743,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@babel/helper-create-class-features-plugin@7.9.6(@babel/core@7.9.6)':
+    dependencies:
+      '@babel/core': 7.9.6
+      '@babel/helper-function-name': 7.9.5
+      '@babel/helper-member-expression-to-functions': 7.8.3
+      '@babel/helper-optimise-call-expression': 7.8.3
+      '@babel/helper-plugin-utils': 7.8.3
+      '@babel/helper-replace-supers': 7.9.6
+      '@babel/helper-split-export-declaration': 7.8.3
+    transitivePeerDependencies:
+      - supports-color
+
   '@babel/helper-create-regexp-features-plugin@7.8.8(@babel/core@7.7.7)':
     dependencies:
       '@babel/core': 7.7.7
@@ -4995,11 +5042,6 @@ snapshots:
       '@babel/core': 7.9.6
       '@babel/helper-plugin-utils': 7.8.3
 
-  '@babel/plugin-syntax-flow@7.8.3(@babel/core@7.9.6)':
-    dependencies:
-      '@babel/core': 7.9.6
-      '@babel/helper-plugin-utils': 7.8.3
-
   '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.7.7)':
     dependencies:
       '@babel/core': 7.7.7
@@ -5088,6 +5130,11 @@ snapshots:
   '@babel/plugin-syntax-typescript@7.8.3(@babel/core@7.7.7)':
     dependencies:
       '@babel/core': 7.7.7
+      '@babel/helper-plugin-utils': 7.8.3
+
+  '@babel/plugin-syntax-typescript@7.8.3(@babel/core@7.9.6)':
+    dependencies:
+      '@babel/core': 7.9.6
       '@babel/helper-plugin-utils': 7.8.3
 
   '@babel/plugin-transform-arrow-functions@7.8.3(@babel/core@7.7.7)':
@@ -5225,12 +5272,6 @@ snapshots:
       '@babel/helper-plugin-utils': 7.8.3
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-transform-flow-strip-types@7.9.0(@babel/core@7.9.6)':
-    dependencies:
-      '@babel/core': 7.9.6
-      '@babel/helper-plugin-utils': 7.8.3
-      '@babel/plugin-syntax-flow': 7.8.3(@babel/core@7.9.6)
 
   '@babel/plugin-transform-for-of@7.9.0(@babel/core@7.7.7)':
     dependencies:
@@ -5561,6 +5602,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@babel/plugin-transform-typescript@7.9.6(@babel/core@7.9.6)':
+    dependencies:
+      '@babel/core': 7.9.6
+      '@babel/helper-create-class-features-plugin': 7.9.6(@babel/core@7.9.6)
+      '@babel/helper-plugin-utils': 7.8.3
+      '@babel/plugin-syntax-typescript': 7.8.3(@babel/core@7.9.6)
+    transitivePeerDependencies:
+      - supports-color
+
   '@babel/plugin-transform-unicode-regex@7.8.3(@babel/core@7.7.7)':
     dependencies:
       '@babel/core': 7.7.7
@@ -5705,12 +5755,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/preset-flow@7.9.0(@babel/core@7.9.6)':
-    dependencies:
-      '@babel/core': 7.9.6
-      '@babel/helper-plugin-utils': 7.8.3
-      '@babel/plugin-transform-flow-strip-types': 7.9.0(@babel/core@7.9.6)
-
   '@babel/preset-modules@0.1.3(@babel/core@7.7.7)':
     dependencies:
       '@babel/core': 7.7.7
@@ -5754,6 +5798,14 @@ snapshots:
       '@babel/core': 7.7.7
       '@babel/helper-plugin-utils': 7.8.3
       '@babel/plugin-transform-typescript': 7.9.6(@babel/core@7.7.7)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@babel/preset-typescript@7.9.0(@babel/core@7.9.6)':
+    dependencies:
+      '@babel/core': 7.9.6
+      '@babel/helper-plugin-utils': 7.8.3
+      '@babel/plugin-transform-typescript': 7.9.6(@babel/core@7.9.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -5979,6 +6031,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@jest/types@25.5.0':
+    dependencies:
+      '@types/istanbul-lib-coverage': 2.0.2
+      '@types/istanbul-reports': 1.1.1
+      '@types/yargs': 15.0.3
+      chalk: 3.0.0
+
   '@jest/types@26.0.1':
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.2
@@ -6135,6 +6194,15 @@ snapshots:
       '@rollup/pluginutils': 3.0.10(rollup@2.10.8)
       rollup: 2.10.8
 
+  '@rollup/plugin-node-resolve@7.1.3(rollup@2.10.8)':
+    dependencies:
+      '@rollup/pluginutils': 3.0.10(rollup@2.10.8)
+      '@types/resolve': 0.0.8
+      builtin-modules: 3.3.0
+      is-module: 1.0.0
+      resolve: 1.17.0
+      rollup: 2.10.8
+
   '@rollup/plugin-replace@2.3.2(rollup@2.10.8)':
     dependencies:
       '@rollup/pluginutils': 3.0.10(rollup@2.10.8)
@@ -6196,6 +6264,11 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.2
       '@types/istanbul-lib-report': 3.0.0
 
+  '@types/jest@25.2.3':
+    dependencies:
+      jest-diff: 25.5.0
+      pretty-format: 25.5.0
+
   '@types/node@10.12.18': {}
 
   '@types/normalize-package-data@2.4.0': {}
@@ -6206,6 +6279,14 @@ snapshots:
 
   '@types/q@1.5.4': {}
 
+  '@types/react-dom@16.9.25(@types/react@16.7.18)':
+    dependencies:
+      '@types/react': 16.7.18
+
+  '@types/react-test-renderer@16.9.12':
+    dependencies:
+      '@types/react': 16.7.18
+
   '@types/react-transition-group@2.9.1':
     dependencies:
       '@types/react': 16.7.18
@@ -6214,6 +6295,10 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.5.8
       csstype: 2.6.7
+
+  '@types/resolve@0.0.8':
+    dependencies:
+      '@types/node': 10.12.18
 
   '@types/stack-utils@1.0.1': {}
 
@@ -6673,6 +6758,8 @@ snapshots:
       ieee754: 1.1.12
       isarray: 1.0.0
 
+  builtin-modules@3.3.0: {}
+
   builtin-status-codes@3.0.0: {}
 
   cacache@12.0.3:
@@ -6779,7 +6866,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.2.1
       supports-color: 7.1.0
-    optional: true
 
   chalk@4.0.0:
     dependencies:
@@ -7229,6 +7315,8 @@ snapshots:
 
   detect-newline@3.1.0: {}
 
+  diff-sequences@25.2.6: {}
+
   diff-sequences@26.0.0: {}
 
   diffie-hellman@5.0.3:
@@ -7647,8 +7735,6 @@ snapshots:
   flatted@2.0.2:
     optional: true
 
-  flow-bin@0.109.0: {}
-
   flush-write-stream@1.0.3:
     dependencies:
       inherits: 2.0.4
@@ -8034,6 +8120,8 @@ snapshots:
 
   is-in-browser@1.1.3: {}
 
+  is-module@1.0.0: {}
+
   is-number@3.0.0:
     dependencies:
       kind-of: 3.2.2
@@ -8174,6 +8262,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  jest-diff@25.5.0:
+    dependencies:
+      chalk: 3.0.0
+      diff-sequences: 25.2.6
+      jest-get-type: 25.2.6
+      pretty-format: 25.5.0
+
   jest-diff@26.0.1:
     dependencies:
       chalk: 4.0.0
@@ -8213,6 +8308,8 @@ snapshots:
       '@jest/types': 26.0.1
       jest-mock: 26.0.1
       jest-util: 26.0.1
+
+  jest-get-type@25.2.6: {}
 
   jest-get-type@26.0.0: {}
 
@@ -9444,6 +9541,13 @@ snapshots:
     optional: true
 
   prepend-http@1.0.4: {}
+
+  pretty-format@25.5.0:
+    dependencies:
+      '@jest/types': 25.5.0
+      ansi-regex: 5.0.0
+      ansi-styles: 4.2.1
+      react-is: 16.13.1
 
   pretty-format@26.0.1:
     dependencies:

@@ -1,6 +1,6 @@
-import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/styles';
+import React from "react";
+import Document, { DocumentContext, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheets } from "@material-ui/styles";
 
 class MyDocument extends Document {
   render() {
@@ -27,10 +27,10 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = ctx => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const sheets = new ServerStyleSheets();
 
-  const initialProps = ctx.renderPage(Component => ({ ...props }) => {
+  const initialProps = await ctx.renderPage((Component) => ({ ...props }) => {
     return sheets.collect(<Component {...props} />);
   });
 

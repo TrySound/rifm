@@ -1,16 +1,19 @@
-/* @flow */
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Rifm } from "rifm";
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Rifm } from 'rifm';
+interface RenderInputProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
 
-const Example = () /*:React.Node*/ => {
-  const [number, setNumber] = React.useState('');
-  const [lowercase, setLowercase] = React.useState('');
-  const [uppercase, setUppercase] = React.useState('');
-  const [capitalized, setCapitalized] = React.useState('');
-  const [latinLetters, setLatinLetters] = React.useState('');
-  const [comment, setComment] = React.useState('');
+const Example = () => {
+  const [number, setNumber] = React.useState("");
+  const [lowercase, setLowercase] = React.useState("");
+  const [uppercase, setUppercase] = React.useState("");
+  const [capitalized, setCapitalized] = React.useState("");
+  const [latinLetters, setLatinLetters] = React.useState("");
+  const [comment, setComment] = React.useState("");
 
   return (
     <Grid>
@@ -19,8 +22,8 @@ const Example = () /*:React.Node*/ => {
         <Rifm
           accept={/[\d.,]+/g}
           // allow only one floating point
-          format={v => (v.match(/\d+[.,]?\d*/) || []).join('')}
-          replace={v => v.replace(',', '.')}
+          format={(v) => (v.match(/\d+[.,]?\d*/) || []).join("")}
+          replace={(v) => v.replace(",", ".")}
           value={number}
           onChange={setNumber}
         >
@@ -32,8 +35,8 @@ const Example = () /*:React.Node*/ => {
         <div>Lower case</div>
         <Rifm
           accept={/./g}
-          format={v => v}
-          replace={v => v.toLowerCase()}
+          format={(v) => v}
+          replace={(v) => v.toLowerCase()}
           value={lowercase}
           onChange={setLowercase}
         >
@@ -45,8 +48,8 @@ const Example = () /*:React.Node*/ => {
         <div>Upper case</div>
         <Rifm
           accept={/./g}
-          format={v => v}
-          replace={v => v.toUpperCase()}
+          format={(v) => v}
+          replace={(v) => v.toUpperCase()}
           value={uppercase}
           onChange={setUppercase}
         >
@@ -58,8 +61,8 @@ const Example = () /*:React.Node*/ => {
         <div>Capital first letter</div>
         <Rifm
           accept={/./g}
-          format={v => v}
-          replace={v => v.slice(0, 1).toUpperCase() + v.slice(1).toLowerCase()}
+          format={(v) => v}
+          replace={(v) => v.slice(0, 1).toUpperCase() + v.slice(1).toLowerCase()}
           value={capitalized}
           onChange={setCapitalized}
         >
@@ -71,7 +74,7 @@ const Example = () /*:React.Node*/ => {
         <div>Allow latin letters only</div>
         <Rifm
           accept={/[a-zA-Z]/g}
-          format={v => (v.match(/[a-zA-Z]/g) || []).join('')}
+          format={(v) => (v.match(/[a-zA-Z]/g) || []).join("")}
           value={latinLetters}
           onChange={setLatinLetters}
         >
@@ -83,9 +86,9 @@ const Example = () /*:React.Node*/ => {
         <div>Leave a comment about Rifm</div>
         <Rifm
           accept={/./g}
-          format={v => v}
-          replace={v =>
-            'Rifm is the best mask and formatting library. I love it! '
+          format={(v) => v}
+          replace={(v) =>
+            "Rifm is the best mask and formatting library. I love it! "
               .repeat(20)
               .slice(0, v.length)
           }
@@ -99,28 +102,28 @@ const Example = () /*:React.Node*/ => {
   );
 };
 
-const renderInput = ({ value, onChange }) => (
+const renderInput = ({ value, onChange }: RenderInputProps) => (
   <input
     style={{
-      width: '100%',
+      width: "100%",
       height: 32,
-      fontSize: 'inherit',
-      boxSizing: 'border-box',
+      fontSize: "inherit",
+      boxSizing: "border-box",
     }}
     value={value}
     onChange={onChange}
   />
 );
 
-const Grid = ({ children }) => {
+const Grid = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       style={{
-        display: 'grid',
+        display: "grid",
         padding: 16,
         gap: 24,
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        alignItems: 'end',
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        alignItems: "end",
       }}
     >
       {children}
@@ -128,8 +131,8 @@ const Grid = ({ children }) => {
   );
 };
 
-if (typeof document !== 'undefined') {
-  const root = document.getElementById('root');
+if (typeof document !== "undefined") {
+  const root = document.getElementById("root");
   if (root) {
     ReactDOM.render(<Example />, root);
   }

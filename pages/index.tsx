@@ -1,15 +1,18 @@
-/* @flow */
+import * as React from "react";
+import { Container, Typography, Link } from "@material-ui/core";
 
-import * as React from 'react';
-import { Container, Typography, Link } from '@material-ui/core';
+interface EmbedCodesandboxProps {
+  title: string;
+  href: string;
+}
 
-const EmbedCodesandbox = ({ title, href }) => {
-  const iframeStyle = {
-    width: '100%',
+const EmbedCodesandbox = ({ title, href }: EmbedCodesandboxProps) => {
+  const iframeStyle: React.CSSProperties = {
+    width: "100%",
     height: 500,
     border: 0,
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginTop: 16,
     marginBottom: 64,
   };
@@ -23,7 +26,7 @@ const EmbedCodesandbox = ({ title, href }) => {
   );
 };
 
-const GithubIcon = ({ size }) => {
+const GithubIcon = ({ size }: { size: number }) => {
   return (
     <svg
       width={size}
@@ -38,10 +41,10 @@ const GithubIcon = ({ size }) => {
   );
 };
 
-type HeadingProps = {|
-  children: React.Node,
-  id?: string,
-|};
+interface HeadingProps {
+  children: React.ReactNode;
+  id?: string;
+}
 
 const H1 = ({ children, id }: HeadingProps) => {
   return (
@@ -59,7 +62,7 @@ const H2 = ({ children, id }: HeadingProps) => {
   );
 };
 
-const P = ({ children }) => {
+const P = ({ children }: { children: React.ReactNode }) => {
   return (
     <Typography variant="body1" gutterBottom>
       {children}
@@ -73,18 +76,14 @@ const Index = () => {
       <section style={{ marginBottom: 32 }}>
         <H1>
           RIFM - React Input Format & Mask
-          <Link
-            target="_blank"
-            href="https://github.com/TrySound/rifm"
-            style={{ marginLeft: 16 }}
-          >
+          <Link target="_blank" href="https://github.com/TrySound/rifm" style={{ marginLeft: 16 }}>
             <GithubIcon size={40} />
           </Link>
         </H1>
 
         <P>
-          Is a tiny (≈ 650-750b) component to transform any input component into
-          formatted or masked input.
+          Is a tiny (≈ 650-750b) component to transform any input component into formatted or masked
+          input.
         </P>
       </section>
 
@@ -98,8 +97,8 @@ const Index = () => {
       <H2 id="number-format">Number format</H2>
 
       <P>
-        Note: to prevent parseInt overflow you can use <code>maxLength</code> on
-        input field or write your own numberFormat.
+        Note: to prevent parseInt overflow you can use <code>maxLength</code> on input field or
+        write your own numberFormat.
       </P>
 
       <EmbedCodesandbox
@@ -110,9 +109,9 @@ const Index = () => {
       <H2 id="date-format">Date format</H2>
 
       <P>
-        Mask mostly the same as format, the difference that at some moment when
-        you enter symbols replace operation used instead of insert for example
-        when field value reached maximum length.
+        Mask mostly the same as format, the difference that at some moment when you enter symbols
+        replace operation used instead of insert for example when field value reached maximum
+        length.
       </P>
 
       <P>
@@ -127,10 +126,8 @@ const Index = () => {
       <H2 id="phone-format">Phone format</H2>
 
       <P>
-        Example of usage with{' '}
-        <Link href="https://github.com/catamphetamine/libphonenumber-js">
-          libphonenumber-js
-        </Link>{' '}
+        Example of usage with{" "}
+        <Link href="https://github.com/catamphetamine/libphonenumber-js">libphonenumber-js</Link>{" "}
         formatter
       </P>
 

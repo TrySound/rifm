@@ -1,51 +1,54 @@
-/* @flow */
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Rifm } from "rifm";
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Rifm } from 'rifm';
+interface RenderInputProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
 
 // To prevent parseInt overflow you can use `maxLength` on input field
 // or write your own numberFormat.
 
 const integerAccept = /\d+/g;
 
-const parseInteger = string => (string.match(integerAccept) || []).join('');
+const parseInteger = (value: string) => (value.match(integerAccept) || []).join("");
 
-const formatInteger = string => {
-  const parsed = parseInteger(string);
+const formatInteger = (value: string) => {
+  const parsed = parseInteger(value);
   const number = Number.parseInt(parsed, 10);
   if (Number.isNaN(number)) {
-    return '';
+    return "";
   }
-  return number.toLocaleString('en');
+  return number.toLocaleString("en");
 };
 
 const negativeAccept = /[\d-]+/g;
 
-const parseNegative = string => (string.match(negativeAccept) || []).join('');
+const parseNegative = (value: string) => (value.match(negativeAccept) || []).join("");
 
-const formatNegative = string => {
-  const parsed = parseNegative(string);
-  if (parsed === '-') {
-    return '-';
+const formatNegative = (value: string) => {
+  const parsed = parseNegative(value);
+  if (parsed === "-") {
+    return "-";
   }
   const number = Number.parseInt(parsed, 10);
   if (Number.isNaN(number)) {
-    return '';
+    return "";
   }
-  return number.toLocaleString('en');
+  return number.toLocaleString("en");
 };
 
 const numberAccept = /[\d.]+/g;
 
-const parseNumber = string => (string.match(numberAccept) || []).join('');
+const parseNumber = (value: string) => (value.match(numberAccept) || []).join("");
 
-const formatFixedPointNumber = (value, digits) => {
+const formatFixedPointNumber = (value: string, digits: number) => {
   const parsed = parseNumber(value);
-  const [head, tail] = parsed.split('.');
+  const [head, tail] = parsed.split(".");
   // Avoid rounding errors at toLocaleString as when user enters 1.239 and maxDigits=2 we
   // must not to convert it to 1.24, it must stay 1.23
-  const scaledTail = tail != null ? tail.slice(0, digits) : '';
+  const scaledTail = tail != null ? tail.slice(0, digits) : "";
 
   let number = Number.parseFloat(`${head}.${scaledTail}`);
 
@@ -55,17 +58,15 @@ const formatFixedPointNumber = (value, digits) => {
   // The main disadvantage of this, that you need carefully check input value
   // that it always has fractional part
   if (digits > 0 && tail == null) {
-    const paddedHead = head.padStart(digits + 1 - head.length, '0');
-    number = Number.parseFloat(
-      `${paddedHead.slice(0, -digits)}.${paddedHead.slice(-digits)}`
-    );
+    const paddedHead = head.padStart(digits + 1 - head.length, "0");
+    number = Number.parseFloat(`${paddedHead.slice(0, -digits)}.${paddedHead.slice(-digits)}`);
   }
 
   if (Number.isNaN(number)) {
-    return '';
+    return "";
   }
 
-  const formatted = number.toLocaleString('de-CH', {
+  const formatted = number.toLocaleString("de-CH", {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
@@ -73,34 +74,32 @@ const formatFixedPointNumber = (value, digits) => {
   return formatted;
 };
 
-const formatFloatingPointNumber = (value, maxDigits) => {
+const formatFloatingPointNumber = (value: string, maxDigits: number) => {
   const parsed = parseNumber(value);
-  const [head, tail] = parsed.split('.');
+  const [head, tail] = parsed.split(".");
   // Avoid rounding errors at toLocaleString as when user enters 1.239 and maxDigits=2 we
   // must not to convert it to 1.24, it must stay 1.23
-  const scaledTail = tail != null ? tail.slice(0, maxDigits) : '';
+  const scaledTail = tail != null ? tail.slice(0, maxDigits) : "";
 
   const number = Number.parseFloat(`${head}.${scaledTail}`);
 
   if (Number.isNaN(number)) {
-    return '';
+    return "";
   }
 
-  const formatted = number.toLocaleString('de-CH', {
+  const formatted = number.toLocaleString("de-CH", {
     minimumFractionDigits: 0,
     maximumFractionDigits: maxDigits,
   });
 
-  if (parsed.includes('.')) {
-    const [formattedHead] = formatted.split('.');
+  if (parsed.includes(".")) {
+    const [formattedHead] = formatted.split(".");
 
     // skip zero at digits position for non fixed floats
     // as at digits 2 for non fixed floats numbers like 1.50 has no sense, just 1.5 allowed
     // but 1.0 has sense as otherwise you will not be able to enter 1.05 for example
     const formattedTail =
-      scaledTail !== '' && scaledTail[maxDigits - 1] === '0'
-        ? scaledTail.slice(0, -1)
-        : scaledTail;
+      scaledTail !== "" && scaledTail[maxDigits - 1] === "0" ? scaledTail.slice(0, -1) : scaledTail;
 
     return `${formattedHead}.${formattedTail}`;
   }
@@ -108,16 +107,15 @@ const formatFloatingPointNumber = (value, maxDigits) => {
 };
 
 // 2 in m^2 should not be a number to not match regexp
-const formatMeters = string =>
-  formatFloatingPointNumber(string, 2) + ' m\u00B2';
+const formatMeters = (value: string) => formatFloatingPointNumber(value, 2) + " m\u00B2";
 
-const formatCurrency = string => '$' + formatFloatingPointNumber(string, 2);
+const formatCurrency = (value: string) => "$" + formatFloatingPointNumber(value, 2);
 
-const Example = () /*:React.Node*/ => {
-  const [integer, setInteger] = React.useState('12345');
-  const [negative, setNegative] = React.useState('12345');
-  const [variableFloat, setVariableFloat] = React.useState('12345');
-  const [fixedFloat, setFixedFloat] = React.useState('12345');
+const Example = () => {
+  const [integer, setInteger] = React.useState("12345");
+  const [negative, setNegative] = React.useState("12345");
+  const [variableFloat, setVariableFloat] = React.useState("12345");
+  const [fixedFloat, setFixedFloat] = React.useState("12345");
 
   return (
     <Grid>
@@ -127,7 +125,7 @@ const Example = () /*:React.Node*/ => {
           accept={/\d/g}
           format={formatInteger}
           value={integer}
-          onChange={value => setInteger(parseInteger(value))}
+          onChange={(value) => setInteger(parseInteger(value))}
         >
           {renderInput}
         </Rifm>
@@ -139,7 +137,7 @@ const Example = () /*:React.Node*/ => {
           accept={/[\d-]/g}
           format={formatNegative}
           value={negative}
-          onChange={value => setNegative(parseNegative(value))}
+          onChange={(value) => setNegative(parseNegative(value))}
         >
           {renderInput}
         </Rifm>
@@ -149,10 +147,10 @@ const Example = () /*:React.Node*/ => {
         <div>Number with fractional part: {fixedFloat}</div>
         <Rifm
           accept={/[\d.]/g}
-          format={v => formatFixedPointNumber(v, 2)}
+          format={(v) => formatFixedPointNumber(v, 2)}
           // 00 is needed here see disadvantages comment at formatNumber
           value={`${fixedFloat}00`}
-          onChange={value => setFixedFloat(parseNumber(value))}
+          onChange={(value) => setFixedFloat(parseNumber(value))}
         >
           {renderInput}
         </Rifm>
@@ -162,9 +160,9 @@ const Example = () /*:React.Node*/ => {
         <div>Number with variable fractional part: {variableFloat}</div>
         <Rifm
           accept={/[\d.]/g}
-          format={v => formatFloatingPointNumber(v, 2)}
+          format={(v) => formatFloatingPointNumber(v, 2)}
           value={variableFloat}
-          onChange={value => setVariableFloat(parseNumber(value))}
+          onChange={(value) => setVariableFloat(parseNumber(value))}
         >
           {renderInput}
         </Rifm>
@@ -176,7 +174,7 @@ const Example = () /*:React.Node*/ => {
           accept={/[\d.]/g}
           format={formatMeters}
           value={variableFloat}
-          onChange={value => setVariableFloat(parseNumber(value))}
+          onChange={(value) => setVariableFloat(parseNumber(value))}
         >
           {renderInput}
         </Rifm>
@@ -189,7 +187,7 @@ const Example = () /*:React.Node*/ => {
           accept={/[\d.$]/g}
           format={formatCurrency}
           value={variableFloat}
-          onChange={value => setVariableFloat(parseNumber(value))}
+          onChange={(value) => setVariableFloat(parseNumber(value))}
         >
           {renderInput}
         </Rifm>
@@ -198,31 +196,31 @@ const Example = () /*:React.Node*/ => {
   );
 };
 
-const renderInput = ({ value, onChange }) => (
+const renderInput = ({ value, onChange }: RenderInputProps) => (
   // type=number is not allowed
   <input
     type="tel"
     style={{
-      textAlign: 'right',
-      width: '100%',
+      textAlign: "right",
+      width: "100%",
       height: 32,
-      fontSize: 'inherit',
-      boxSizing: 'border-box',
+      fontSize: "inherit",
+      boxSizing: "border-box",
     }}
     value={value}
     onChange={onChange}
   />
 );
 
-const Grid = ({ children }) => {
+const Grid = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       style={{
-        display: 'grid',
+        display: "grid",
         padding: 16,
         gap: 24,
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        alignItems: 'end',
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        alignItems: "end",
       }}
     >
       {children}
@@ -230,8 +228,8 @@ const Grid = ({ children }) => {
   );
 };
 
-if (typeof document !== 'undefined') {
-  const root = document.getElementById('root');
+if (typeof document !== "undefined") {
+  const root = document.getElementById("root");
   if (root) {
     ReactDOM.render(<Example />, root);
   }

@@ -2,10 +2,7 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "es5",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "jsx": "preserve",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -14,20 +11,20 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "rifm": [
-        "./src"
-      ]
+      "rifm": ["./src"]
     },
-    "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowJs": true
   },
   "include": [
-    "./src/**/*.ts*",
-    "./tests/**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "pages/**/*.ts",
+    "pages/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

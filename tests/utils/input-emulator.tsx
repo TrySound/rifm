@@ -1,33 +1,29 @@
-/* @flow */
+import * as React from "react";
 
-import * as React from 'react';
+export interface InputState {
+  value: string;
+  selectionStart: number;
+  selectionEnd: number;
+}
 
-const makeEvtFromState = (state): SyntheticInputEvent<HTMLInputElement> =>
-  ({
-    target: state,
-  }: any);
+const makeEvtFromState = (state: InputState): React.ChangeEvent<HTMLInputElement> =>
+  ({ target: state }) as unknown as React.ChangeEvent<HTMLInputElement>;
 
 export type InputCommand =
-  | {| type: 'PUT_SYMBOL', payload: string |}
-  | {| type: 'MOVE_CARET', payload: number |}
-  | {| type: 'BACKSPACE' |}
-  | {| type: 'DELETE' |};
+  | { type: "PUT_SYMBOL"; payload: string }
+  | { type: "MOVE_CARET"; payload: number }
+  | { type: "BACKSPACE" }
+  | { type: "DELETE" };
 
-type InputState = {
-  value: string,
-  selectionStart: number,
-  selectionEnd: number,
-};
-
-type Props = {|
-  value: string,
-  onChange: (evt: SyntheticInputEvent<HTMLInputElement>) => void,
-  children: ((cmd: InputCommand) => void, () => InputState) => React.Node,
-|};
+interface Props {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  children: (command: (cmd: InputCommand) => void, getState: () => InputState) => React.ReactNode;
+}
 
 export class InputEmulator extends React.Component<Props> {
-  _execCommand: (cmd: InputCommand) => void;
-  _state: InputState;
+  private _execCommand: (cmd: InputCommand) => void;
+  private _state: InputState;
 
   constructor(props: Props) {
     super(props);
@@ -39,7 +35,7 @@ export class InputEmulator extends React.Component<Props> {
     };
 
     this._execCommand = (cmd: InputCommand) => {
-      if (cmd.type === 'PUT_SYMBOL') {
+      if (cmd.type === "PUT_SYMBOL") {
         this._state.value =
           this._state.value.substr(0, this._state.selectionStart) +
           cmd.payload +
@@ -49,43 +45,43 @@ export class InputEmulator extends React.Component<Props> {
 
         this.props.onChange(makeEvtFromState(this._state));
       }
-      if (cmd.type === 'MOVE_CARET') {
+      if (cmd.type === "MOVE_CARET") {
         this._state.selectionStart = this._state.selectionEnd = Math.min(
           Math.max(this._state.selectionStart + cmd.payload, 0),
-          this._state.value.length
+          this._state.value.length,
         );
       }
 
-      if (cmd.type === 'BACKSPACE') {
+      if (cmd.type === "BACKSPACE") {
         this._state.value =
           this._state.value.substr(0, this._state.selectionStart - 1) +
           this._state.value.substr(this._state.selectionStart);
 
         this._state.selectionStart = this._state.selectionEnd = Math.min(
           Math.max(this._state.selectionStart - 1, 0),
-          this._state.value.length
+          this._state.value.length,
         );
         this.props.onChange(makeEvtFromState(this._state));
       }
 
-      if (cmd.type === 'DELETE') {
+      if (cmd.type === "DELETE") {
         document.dispatchEvent(
-          new KeyboardEvent('keydown', { keyCode: 46, code: 'Delete' })
+          new KeyboardEvent("keydown", {
+            keyCode: 46,
+            code: "Delete",
+          } as KeyboardEventInit),
         );
 
         this._state.value =
           this._state.value.substr(0, this._state.selectionStart) +
           this._state.value.substr(this._state.selectionStart + 1);
-        /*
-      this._state.selectionStart = this._state.selectionEnd = Math.min(
-        Math.max(this._state.selectionStart - 1, 0),
-        this._state.value.length
-      );
-      */
         this.props.onChange(makeEvtFromState(this._state));
 
         document.dispatchEvent(
-          new KeyboardEvent('keyup', { keyCode: 46, code: 'Delete' })
+          new KeyboardEvent("keyup", {
+            keyCode: 46,
+            code: "Delete",
+          } as KeyboardEventInit),
         );
       }
     };
@@ -110,19 +106,19 @@ export const renderInputState = (state: InputState) => {
   if (state.selectionStart === state.selectionEnd) {
     return (
       state.value.substring(0, state.selectionStart) +
-      '|' +
+      "|" +
       state.value.substring(state.selectionStart)
     );
   }
 
   const end = state.value.substring(state.selectionStart);
-  const dt = state.selectionEnd - state.selectionStart;
+  const selectionLength = state.selectionEnd - state.selectionStart;
 
   return (
     state.value.substring(0, state.selectionStart) +
-    '[' +
-    end.substring(0, dt) +
-    ']' +
-    end.substring(dt)
+    "[" +
+    end.substring(0, selectionLength) +
+    "]" +
+    end.substring(selectionLength)
   );
 };
