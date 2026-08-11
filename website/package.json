@@ -9,6 +9,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@oddbird/popover-polyfill": "^0.7.1",
+    "interestfor": "^1.0.8",
     "prismjs": "^1.30.0",
     "react": "~16.8.0",
     "react-dom": "~16.8.0",

@@ -114,6 +114,12 @@ importers:
 
   website:
     dependencies:
+      '@oddbird/popover-polyfill':
+        specifier: ^0.7.1
+        version: 0.7.1
+      interestfor:
+        specifier: ^1.0.8
+        version: 1.0.8
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -756,6 +762,9 @@ packages:
     peerDependencies:
       react-refresh: 0.8.2
       webpack: ^4
+
+  '@oddbird/popover-polyfill@0.7.1':
+    resolution: {integrity: sha512-H3P1qJpbJiAToQt6dAjdTzWP327YPGjI286pmn+U/eSfE4krGAMHYz3OL+VYSQhwCsbSLkik9GPZGNvtdeEetQ==}
 
   '@oxc-project/types@0.143.0':
     resolution: {integrity: sha512-u6JZdLBTLotrNC9Vd6vPssINdzcCzleKAH6EJKImQb7GtYvX5keN2dxkoK44stCc4tffE6QQRtZTXVSzsLUlWA==}
@@ -2265,6 +2274,9 @@ packages:
   inquirer@7.1.0:
     resolution: {integrity: sha512-5fJMWEmikSYu0nv/flMc475MhGbB7TSPd/2IpFV4I4rMklboCH2rQjYY5kKiYGHqUF9gvaambupcJFFG9dvReg==}
     engines: {node: '>=6.0.0'}
+
+  interestfor@1.0.8:
+    resolution: {integrity: sha512-qYwTmxzDnrosGZX/1lDEOsAv73aYiFKLniN20SS78588WhRMHj8z7u2uFe9QZPIVmkCyIbJwiMQ/85Up7hrseQ==}
 
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -5630,6 +5642,8 @@ snapshots:
       react-refresh: 0.8.2
       webpack: 4.43.0
 
+  '@oddbird/popover-polyfill@0.7.1': {}
+
   '@oxc-project/types@0.143.0': {}
 
   '@oxfmt/binding-android-arm-eabi@0.63.0':
@@ -7354,6 +7368,8 @@ snapshots:
       strip-ansi: 6.0.0
       through: 2.3.8
     optional: true
+
+  interestfor@1.0.8: {}
 
   invariant@2.2.4:
     dependencies:

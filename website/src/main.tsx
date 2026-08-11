@@ -1,6 +1,9 @@
+import "@oddbird/popover-polyfill";
+import "interestfor";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useRifm } from "rifm";
+import { setupCopyButtons } from "./copy-code";
 import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
 import { highlightAll } from "./syntax-highlighting";
 import "./styles.css";
@@ -82,13 +85,4 @@ document.querySelectorAll<HTMLElement>("[data-demo]").forEach((element) => {
 });
 
 highlightAll();
-
-document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
-  button.addEventListener("click", async () => {
-    const text = button.dataset.copy;
-    if (!text) return;
-    await navigator.clipboard.writeText(text);
-    button.textContent = "Copied";
-    window.setTimeout(() => (button.textContent = "Copy"), 1400);
-  });
-});
+setupCopyButtons();
