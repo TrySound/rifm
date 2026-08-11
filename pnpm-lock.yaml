@@ -112,6 +112,31 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(jsdom@29.1.1)(vite@8.2.1(@types/node@26.2.0))
 
+  website:
+    dependencies:
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
+      react:
+        specifier: ~16.8.0
+        version: 16.8.2
+      react-dom:
+        specifier: ~16.8.0
+        version: 16.8.2(react@16.8.2)
+      rifm:
+        specifier: workspace:*
+        version: link:..
+    devDependencies:
+      '@types/prismjs':
+        specifier: ^1.26.5
+        version: 1.26.6
+      vite:
+        specifier: ^8.2.1
+        version: 8.2.1(@types/node@26.2.0)
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.2.0)(jsdom@29.1.1)(vite@8.2.1(@types/node@26.2.0))
+
 packages:
 
   '@ampproject/toolbox-core@2.3.0':
@@ -994,6 +1019,9 @@ packages:
 
   '@types/node@26.2.0':
     resolution: {integrity: sha512-5IviulTZeRNp2vAJ514cc/HUlY5nZ9fCbq9DMyC52BrhFZACo3nI0R7qBxhQmo/d27NFe96ur/b7Wwxklda+kg==}
+
+  '@types/prismjs@1.26.6':
+    resolution: {integrity: sha512-vqlvI7qlMvcCBbVe0AKAb4f97//Hy0EBTaiW8AalRnG/xAN5zOiWWyrNqNXeq8+KAuvRewjCVY1+IPxk4RdNYw==}
 
   '@types/prop-types@15.5.8':
     resolution: {integrity: sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==}
@@ -3193,6 +3221,10 @@ packages:
   prepend-http@1.0.4:
     resolution: {integrity: sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==}
     engines: {node: '>=0.10.0'}
+
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
 
   private@0.1.8:
     resolution: {integrity: sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==}
@@ -5748,6 +5780,8 @@ snapshots:
   '@types/node@26.2.0':
     dependencies:
       undici-types: 8.3.0
+
+  '@types/prismjs@1.26.6': {}
 
   '@types/prop-types@15.5.8': {}
 
@@ -8438,6 +8472,8 @@ snapshots:
     optional: true
 
   prepend-http@1.0.4: {}
+
+  prismjs@1.30.0: {}
 
   private@0.1.8: {}
 

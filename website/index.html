@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Rifm is a tiny React input formatting and masking library that preserves cursor position."
+    />
+    <meta name="theme-color" content="#0b0c10" />
+    <title>Rifm — React input format and mask</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="Rifm home">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M5 7h19c7 0 11 4 11 10s-4 10-11 10H12" />
+            <path d="m23 27 9 8M12 13v22" />
+          </svg>
+          <span>rifm</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#examples">Examples</a>
+          <a href="#setup">Setup</a>
+          <a href="#why-rifm">Why Rifm</a>
+        </nav>
+        <a class="github-link" href="https://github.com/TrySound/rifm" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.2.8-.5v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17 4.9 18 5.2 18 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.8 5.4-5.5 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.5 11.5 0 0 0 12 .7Z" /></svg>
+          <span>GitHub</span>
+        </a>
+      </header>
+
+      <main id="top">
+        <section class="hero section-wrap">
+          <div class="hero-glow" aria-hidden="true"></div>
+          <div class="eyebrow"><i></i> Built for React inputs</div>
+          <h1>Formatting that keeps<br /><span>the cursor in place.</span></h1>
+          <p class="hero-copy">
+            Rifm turns any input into a precise formatter or mask. Tiny, dependency-free,
+            and designed around the detail that matters: where your cursor lands next.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#examples">Try the examples <span>↓</span></a>
+            <div class="install-command">
+              <code><span>$</span> pnpm add rifm</code>
+              <button type="button" data-copy="pnpm add rifm" aria-label="Copy install command">Copy</button>
+            </div>
+          </div>
+          <div class="hero-stage">
+            <div class="stage-lines" aria-hidden="true"></div>
+            <div class="cursor-story">
+              <div class="story-head">
+                <span>cursor-preservation.tsx</span>
+                <div><i></i><i></i><i></i></div>
+              </div>
+              <div class="story-body">
+                <span class="story-caption">You type</span>
+                <div class="story-value"><span>1234</span><b class="cursor"></b><span>56</span></div>
+                <svg viewBox="0 0 80 26" aria-hidden="true"><path d="M2 4c21 0 19 18 39 18h34" /><path d="m69 16 7 6-7 6" /></svg>
+                <span class="story-caption">Rifm returns</span>
+                <div class="story-value result"><span>123,4</span><b class="cursor"></b><span>56</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="signal-strip" aria-label="Package highlights">
+          <div><strong>~800b</strong><span>minified + gzip</span></div>
+          <div><strong>0</strong><span>dependencies</span></div>
+          <div><strong>2 APIs</strong><span>hook + component</span></div>
+          <div><strong>MIT</strong><span>open source</span></div>
+        </section>
+
+        <section class="examples section-wrap" id="examples">
+          <div class="section-heading">
+            <div>
+              <span class="section-index">01 / LIVE EXAMPLES</span>
+              <h2>Type into it.<br /><em>See it stay put.</em></h2>
+            </div>
+            <p>Each field below runs locally with Rifm. Edit from the middle, delete separators, or paste a messy value.</p>
+          </div>
+
+          <div class="example-grid">
+            <article class="example-card feature-card">
+              <div class="card-title"><span>01</span><h3>Number formatting</h3><b>Most common</b></div>
+              <div class="demo-surface"><div data-demo="number"></div></div>
+              <pre><code class="language-tsx">const format = (value: string) =&gt;
+  value
+    .replace(/\D/g, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+const rifm = useRifm({
+  value,
+  onChange: setValue,
+  format,
+})</code></pre>
+            </article>
+
+            <article class="example-card">
+              <div class="card-title"><span>02</span><h3>Phone number</h3></div>
+              <div class="demo-surface"><div data-demo="phone"></div></div>
+              <pre><code class="language-tsx">&lt;Rifm
+  value={phone}
+  onChange={setPhone}
+  accept={/\d/g}
+  format={formatPhone}
+&gt;
+  {props =&gt; &lt;input {...props} /&gt;}
+&lt;/Rifm&gt;</code></pre>
+            </article>
+
+            <article class="example-card">
+              <div class="card-title"><span>03</span><h3>Date mask</h3></div>
+              <div class="demo-surface"><div data-demo="date"></div></div>
+              <pre><code class="language-typescript">const formatDate = (value: string) =&gt; {
+  const digits = value.replace(/\D/g, '')
+  return [
+    digits.slice(0, 2),
+    digits.slice(2, 4),
+    digits.slice(4, 8),
+  ].filter(Boolean).join(' / ')
+}</code></pre>
+            </article>
+
+            <article class="example-card accent-card">
+              <div class="card-title"><span>04</span><h3>Text enforcement</h3></div>
+              <div class="demo-surface"><div data-demo="uppercase"></div></div>
+              <pre><code class="language-tsx">&lt;Rifm
+  accept={/[a-z ]/gi}
+  format={value =&gt; value}
+  replace={value =&gt;
+    value.replace(/[^a-z ]/gi, '').toUpperCase()
+  }
+  {...props}
+/&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section class="why section-wrap" id="why-rifm">
+          <div class="section-heading compact">
+            <div>
+              <span class="section-index">02 / WHY RIFM</span>
+              <h2>One small job.<br /><em>Done carefully.</em></h2>
+            </div>
+          </div>
+          <div class="principles">
+            <article><span>↳</span><h3>Cursor aware</h3><p>Formatting never feels like fighting the input. Rifm tracks accepted characters and restores the natural cursor position.</p></article>
+            <article><span>◇</span><h3>Input agnostic</h3><p>Native inputs, your design system, or a third-party text field. Rifm only supplies value and onChange.</p></article>
+            <article><span>±</span><h3>Format anything</h3><p>Numbers, dates, phone numbers, card masks, casing rules, and domain-specific values all use the same small API.</p></article>
+          </div>
+        </section>
+
+        <section class="setup section-wrap" id="setup">
+          <div class="setup-copy">
+            <span class="section-index">03 / GET STARTED</span>
+            <h2>From zero to<br /><em>formatted.</em></h2>
+            <p>Install Rifm, keep your value in state, and pass the returned props to any text input.</p>
+            <div class="setup-note"><span>!</span><p>Use <code>type="tel"</code> or <code>inputMode</code> for numeric keyboards. Native <code>type="number"</code> does not support selection ranges.</p></div>
+          </div>
+          <div class="setup-code">
+            <div class="code-tabs"><span class="active">useRifm</span><span>React + TypeScript</span></div>
+            <pre><code class="language-tsx">import { useState } from 'react'
+import { useRifm } from 'rifm'
+
+const format = (value: string) =&gt;
+  value.replace(/\D/g, '')
+
+export function AccountNumber() {
+  const [value, setValue] = useState('')
+
+  const rifm = useRifm({
+    value,
+    onChange: setValue,
+    format,
+    accept: /\d/g,
+  })
+
+  return (
+    &lt;input
+      {...rifm}
+      inputMode="numeric"
+      placeholder="Account number"
+    /&gt;
+  )
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="final-cta section-wrap">
+          <div class="cta-grid" aria-hidden="true"></div>
+          <span class="eyebrow"><i></i> Your input, upgraded</span>
+          <h2>Small enough to trust.<br /><em>Precise enough to forget.</em></h2>
+          <div class="hero-actions">
+            <a class="primary-button" href="https://github.com/TrySound/rifm" target="_blank" rel="noreferrer">View on GitHub <span>↗</span></a>
+            <div class="install-command"><code><span>$</span> pnpm add rifm</code><button type="button" data-copy="pnpm add rifm">Copy</button></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <a class="brand" href="#top"><span>rifm</span></a>
+        <p>React input format &amp; mask. Released under MIT.</p>
+        <div><a href="https://www.npmjs.com/package/rifm">npm</a><a href="https://github.com/TrySound/rifm">GitHub</a></div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

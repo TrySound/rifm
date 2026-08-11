@@ -1,0 +1,22 @@
+{
+  "name": "rifm-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "prismjs": "^1.30.0",
+    "react": "~16.8.0",
+    "react-dom": "~16.8.0",
+    "rifm": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/prismjs": "^1.26.5",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  }
+}
