@@ -1,5 +1,6 @@
 import * as React from "react";
 import TestRenderer, { act } from "react-test-renderer";
+import { expect } from "vitest";
 import { Rifm } from "../../src";
 import { InputEmulator, InputCommand, InputState, renderInputState } from "./input-emulator";
 

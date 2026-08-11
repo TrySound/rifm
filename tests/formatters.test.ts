@@ -1,4 +1,5 @@
 import Alea from "alea";
+import { expect, test } from "vitest";
 import { formatFixedPointNumber, formatFloatingPointNumber } from "./format";
 
 test("formatNumber check that format(format(v)) === format(v) in case of parse is identity", () => {

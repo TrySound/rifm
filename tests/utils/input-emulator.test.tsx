@@ -1,5 +1,6 @@
 import * as React from "react";
 import TestRenderer, { act } from "react-test-renderer";
+import { expect, test, vi } from "vitest";
 import { InputCommand, InputEmulator, InputState, renderInputState } from "./input-emulator";
 
 test("Input emulator commands test", () => {
@@ -8,8 +9,8 @@ test("Input emulator commands test", () => {
   const snaphot: unknown[] = [];
   let reactVal = "";
 
-  const keyDownHandler = jest.fn().mockReturnValue(null);
-  const keyUpHandler = jest.fn().mockReturnValue(null);
+  const keyDownHandler = vi.fn().mockReturnValue(null);
+  const keyUpHandler = vi.fn().mockReturnValue(null);
 
   document.addEventListener("keydown", keyDownHandler);
   document.addEventListener("keyup", keyUpHandler);
@@ -80,8 +81,8 @@ test("Input emulator commands test", () => {
 
   const getState = getVal as (() => InputState) | null;
   expect(reactVal).toEqual(getState == null ? null : getState().value);
-  expect(keyDownHandler).toBeCalled();
-  expect(keyUpHandler).toBeCalled();
+  expect(keyDownHandler).toHaveBeenCalled();
+  expect(keyUpHandler).toHaveBeenCalled();
 
   expect(snaphot).toMatchSnapshot();
 });
