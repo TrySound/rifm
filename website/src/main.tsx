@@ -1,10 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useRifm } from "rifm";
-import Prism from "prismjs";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-tsx";
 import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
+import { highlightAll } from "./syntax-highlighting";
 import "./styles.css";
 
 type DemoKind = "number" | "phone" | "date" | "uppercase";
@@ -83,7 +81,7 @@ document.querySelectorAll<HTMLElement>("[data-demo]").forEach((element) => {
   ReactDOM.render(<DemoInput kind={element.dataset.demo as DemoKind} />, element);
 });
 
-Prism.highlightAll();
+highlightAll();
 
 document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
   button.addEventListener("click", async () => {
