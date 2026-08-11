@@ -30,6 +30,13 @@ test("uses the live examples as Get Started", () => {
   expect(getStarted?.querySelectorAll("[data-demo]")).toHaveLength(4);
 });
 
+test("gives every example the same visual treatment", () => {
+  const cards = [...document.querySelectorAll(".example-grid > article")];
+
+  expect(cards).toHaveLength(4);
+  expect(cards.every((card) => card.className === "example-card")).toBe(true);
+});
+
 test("uses a plain footer brand and links to npmx", () => {
   expect(document.querySelector("footer .brand")?.tagName).toBe("SPAN");
   expect(document.querySelector('footer a[href="https://npmx.dev/package/rifm"]')).not.toBeNull();

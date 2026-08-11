@@ -394,10 +394,10 @@ h1 span, h2 em { color: var(--color-transparent); background: linear-gradient(10
 .signal-strip span { color: var(--color-stat-label); font-family: var(--type-stat-label-family); font-size: var(--type-stat-label-size); font-weight: var(--type-stat-label-weight); line-height: var(--type-stat-label-line-height); letter-spacing: var(--type-stat-label-tracking); text-transform: var(--type-stat-label-transform); }
 
 /* Example cards and live inputs */
-.example-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.example-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-surface); overflow: hidden; }
-.feature-card { border-color: var(--color-accent-border); }
-.accent-card { border-color: var(--color-secondary-card-border); }
+.example-grid { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--color-border); }
+.example-card { min-width: 0; display: flex; flex-direction: column; background: var(--color-surface); overflow: hidden; }
+.example-card:nth-child(odd) { border-right: 1px solid var(--color-border); }
+.example-card:nth-child(-n+2) { border-bottom: 1px solid var(--color-border); }
 .card-title { height: 62px; padding: 0 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--color-border); }
 .card-title span { color: var(--color-text-faint); font-family: var(--type-index-family); font-size: var(--type-index-size); font-weight: var(--type-index-weight); line-height: var(--type-index-line-height); letter-spacing: var(--type-index-tracking); text-transform: var(--type-index-transform); }
 .card-title h3 { margin: 0; font-family: var(--type-title-compact-family); font-size: var(--type-title-compact-size); font-weight: var(--type-title-compact-weight); line-height: var(--type-title-compact-line-height); letter-spacing: var(--type-title-compact-tracking); text-transform: var(--type-title-compact-transform); }
@@ -461,6 +461,9 @@ footer a:hover { color: var(--color-accent); }
   .section-heading { align-items: start; flex-direction: column; gap: 22px; }
   .section-heading > p { width: auto; }
   .example-grid, .principles { grid-template-columns: 1fr; }
+  .example-card:nth-child(odd) { border-right: 0; }
+  .example-card:nth-child(-n+2) { border-bottom: 0; }
+  .example-card + .example-card { border-top: 1px solid var(--color-border); }
   .principles article, .principles article + article { min-height: auto; padding: 32px 8px; border-right: 0; border-bottom: 1px solid var(--color-border); }
   .principles article:last-child { border-bottom: 0; }
   .principles article > span { margin-bottom: 28px; }
