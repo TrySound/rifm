@@ -36,4 +36,4 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile ${{ matrix.node == '8' && '--ignore-engines' || '' }}
       - name: Test
-        run: yarn test
+        run: ${{ matrix.node == '8' && 'yarn jest' || 'yarn test' }}
