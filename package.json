@@ -21,12 +21,12 @@
     "build": "rimraf dist && pnpm run build:code && pnpm run build:flow",
     "dev": "NODE_ICU_DATA=`pnpm exec node-full-icu-path` next dev",
     "jest": "NODE_ICU_DATA=`node -e \"const icu = require('full-icu'); if (icu.haveDat()) process.stdout.write(icu.datPath())\"` jest",
-    "test": "eslint --ignore-path .gitignore --ignore-pattern docs ./ && flow check && pnpm run test:ts && pnpm run jest",
+    "test": "flow check && pnpm run test:ts && pnpm run jest",
     "test:ts": "tsc",
     "copy-sandbox-examples": "mkdir -p ./docs/codesandboxes && find ./pages -type d -mindepth 1 -maxdepth 1 -exec cp -R \\{\\} ./docs/codesandboxes \\;",
     "export": "rimraf ./docs ./.next && NODE_OPTIONS=--openssl-legacy-provider next build && next export -o docs && pnpm run copy-sandbox-examples && touch ./docs/.nojekyll",
     "deploy": "pnpm run export",
-    "prepare": "husky",
+    "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm test && pnpm run build"
   },
   "babel": {
@@ -36,68 +36,11 @@
       "@babel/react"
     ]
   },
-  "lint-staged": {
-    "*.{js,md,ts,tsx}": [
-      "prettier --write"
-    ]
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec nano-staged"
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "overrides": [
-      {
-        "files": "*.test.js",
-        "options": {
-          "printWidth": 120
-        }
-      }
-    ]
-  },
-  "eslintConfig": {
-    "env": {
-      "node": 1,
-      "browser": 1,
-      "es6": 1,
-      "jest/globals": true
-    },
-    "parser": "babel-eslint",
-    "plugins": [
-      "react",
-      "flowtype",
-      "jsx-a11y",
-      "jest"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:flowtype/recommended",
-      "plugin:jsx-a11y/recommended"
-    ],
-    "rules": {
-      "no-console": [
-        "error",
-        {
-          "allow": [
-            "warn",
-            "error",
-            "info"
-          ]
-        }
-      ],
-      "react/prop-types": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "{src,tests}/**/*.ts*"
-        ],
-        "parser": "@typescript-eslint/parser",
-        "parserOptions": {
-          "ecmaVersion": 6,
-          "sourceType": "module"
-        }
-      }
-    ]
+  "nano-staged": {
+    "*.{js,md,ts,tsx}": "oxfmt --write"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -109,33 +52,26 @@
     "@rollup/plugin-babel": "^5.0.2",
     "@rollup/plugin-replace": "^2.3.2",
     "@types/react": "16.7.18",
-    "@typescript-eslint/parser": "^1.9.0",
     "alea": "^0.0.9",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "brotli-size": "^4.0.0",
     "emotion": "^10.0.17",
-    "eslint": "^7.1.0",
-    "eslint-plugin-flowtype": "^5.1.0",
-    "eslint-plugin-jest": "^23.13.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.20.0",
     "flow-bin": "^0.109.0",
     "full-icu": "^1.3.0",
     "gzip-size": "^5.1.1",
-    "husky": "^9.1.7",
     "jest": "^26.0.1",
     "libphonenumber-js": "^1.2.15",
-    "lint-staged": "^10.0.7",
+    "nano-staged": "^0.9.0",
     "next": "^9.4.2",
-    "prettier": "^1.19.1",
+    "oxfmt": "^0.63.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-test-renderer": "^16.8.2",
     "rimraf": "^2.6.1",
     "rollup": "^2.10.8",
     "rollup-plugin-terser": "^6.0.1",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^3.4.5"
   },
   "peerDependencies": {
