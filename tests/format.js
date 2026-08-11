@@ -35,10 +35,12 @@ export const formatFixedPointNumber = (
     return '';
   }
 
-  const formatted = number.toLocaleString('de-CH', {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  });
+  const formatted = number
+    .toLocaleString('de-CH', {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    })
+    .replace(/'/g, '’');
 
   return formatted;
 };
@@ -59,10 +61,12 @@ export const formatFloatingPointNumber = (
     return '';
   }
 
-  const formatted = number.toLocaleString('de-CH', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: maxDigits,
-  });
+  const formatted = number
+    .toLocaleString('de-CH', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: maxDigits,
+    })
+    .replace(/'/g, '’');
 
   if (parsed.includes('.')) {
     const [formattedHead] = formatted.split('.');
