@@ -1,10 +1,15 @@
 // @vitest-environment jsdom
 
 import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { beforeAll, expect, test } from "vitest";
 
 beforeAll(() => {
-  document.documentElement.innerHTML = readFileSync("index.html", "utf8");
+  document.documentElement.innerHTML = readFileSync(
+    resolve(dirname(fileURLToPath(import.meta.url)), "../index.html"),
+    "utf8",
+  );
 });
 
 test("uses hero actions instead of a top navigation bar", () => {
