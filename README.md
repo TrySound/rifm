@@ -85,7 +85,7 @@ const numberFormat = (str: string) => {
 ## Install
 
 ```sh
-yarn add rifm
+pnpm add rifm
 ```
 
 ## API
