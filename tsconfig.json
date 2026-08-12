@@ -22,9 +22,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "pages/**/*.ts",
-    "pages/**/*.tsx"
+    "tests/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

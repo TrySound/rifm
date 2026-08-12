@@ -1,12 +1,80 @@
 import "@oddbird/popover-polyfill";
 import "interestfor";
+import Prism from "prismjs";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useRifm } from "rifm";
-import { setupCopyButtons } from "./copy-code";
 import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
-import { highlightAll } from "./syntax-highlighting";
 import "./styles.css";
+
+interface HintPopover extends HTMLElement {
+  hidePopover?: () => void;
+  showPopover?: () => void;
+}
+
+const resetTimers = new WeakMap<HTMLElement, number>();
+let feedbackGeneration = 0;
+
+const matchesState = (tooltip: HTMLElement, selector: string) => {
+  try {
+    return tooltip.matches(selector);
+  } catch {
+    return false;
+  }
+};
+
+const showFeedback = (tooltip: HintPopover, message: string) => {
+  const generation = ++feedbackGeneration;
+  const defaultMessage = tooltip.dataset.defaultMessage ?? tooltip.textContent ?? "Copy code";
+  const status = document.getElementById("copy-status");
+  tooltip.dataset.defaultMessage = defaultMessage;
+  tooltip.textContent = message;
+  if (status) status.textContent = message;
+
+  if (!matchesState(tooltip, ":popover-open")) {
+    try {
+      tooltip.showPopover?.();
+    } catch {}
+  }
+
+  const currentTimer = resetTimers.get(tooltip);
+  if (currentTimer) window.clearTimeout(currentTimer);
+
+  resetTimers.set(
+    tooltip,
+    window.setTimeout(() => {
+      tooltip.textContent = defaultMessage;
+      if (status && generation === feedbackGeneration) status.textContent = "";
+
+      const hasInterest =
+        tooltip.classList.contains("interest-target") || matchesState(tooltip, ":interest-target");
+      if (!hasInterest) {
+        try {
+          tooltip.hidePopover?.();
+        } catch {}
+      }
+      resetTimers.delete(tooltip);
+    }, 1400),
+  );
+};
+
+const copyFromButton = async (button: HTMLButtonElement) => {
+  const tooltipId = button.getAttribute("interestfor");
+  const tooltip = tooltipId ? (document.getElementById(tooltipId) as HintPopover | null) : null;
+  const targetId = button.dataset.copyTarget;
+  const text = targetId ? document.getElementById(targetId)?.textContent?.trim() : "";
+  if (!tooltip || !text) return;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showFeedback(tooltip, "Copied");
+  } catch {
+    showFeedback(tooltip, "Copy failed");
+  }
+};
 
 type DemoKind = "number" | "phone" | "date" | "uppercase";
 
@@ -59,24 +127,21 @@ const DemoInput = ({ kind }: { kind: DemoKind }) => {
   });
 
   return (
-    <label className="demo-control">
-      <span className="demo-label">{config.label}</span>
-      <span className="demo-input-wrap">
-        {"prefix" in config && <span className="demo-prefix">{config.prefix}</span>}
-        <input
-          aria-label={config.label}
-          className="demo-input"
-          inputMode={config.inputMode}
-          placeholder={config.placeholder}
-          type="text"
-          value={rifm.value}
-          onChange={rifm.onChange}
-        />
-        <span className="live-status">
-          <i /> live
-        </span>
+    <span className="field-container">
+      {"prefix" in config && <span className="field-prefix type-mono-value">{config.prefix}</span>}
+      <input
+        aria-label={config.label}
+        className="field-input type-mono-value"
+        inputMode={config.inputMode}
+        placeholder={config.placeholder}
+        type="text"
+        value={rifm.value}
+        onChange={rifm.onChange}
+      />
+      <span className="live-status type-label">
+        <i /> live
       </span>
-    </label>
+    </span>
   );
 };
 
@@ -84,5 +149,21 @@ document.querySelectorAll<HTMLElement>("[data-demo]").forEach((element) => {
   ReactDOM.render(<DemoInput kind={element.dataset.demo as DemoKind} />, element);
 });
 
-highlightAll();
-setupCopyButtons();
+const storyValue = document.querySelector<HTMLElement>("[data-story-value]");
+if (storyValue && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const updateStory = () => {
+    const nextState =
+      storyValue.getAttribute("data-story-value") === "formatted" ? "unformatted" : "formatted";
+    storyValue.setAttribute("data-story-value", nextState);
+  };
+
+  window.setInterval(() => {
+    document.startViewTransition?.(updateStory) ?? updateStory();
+  }, 3000);
+}
+
+Prism.highlightAll();
+
+document.querySelectorAll<HTMLButtonElement>("button[data-copy-target]").forEach((button) => {
+  button.addEventListener("click", () => void copyFromButton(button));
+});
