@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   test: {
+    setupFiles: ["tests/setup.ts"],
     projects: [
       {
         extends: true,

@@ -48,7 +48,9 @@ export const createExec = (props: Props) => {
     );
   };
 
-  TestRenderer.create(<Component />);
+  act(() => {
+    TestRenderer.create(<Component />);
+  });
 
   return (cmd: InputCommand) => {
     act(() => {
