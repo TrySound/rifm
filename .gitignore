@@ -1,4 +1,6 @@
 *.log
+.vitest-attachments
+**/__screenshots__
 node_modules
 dist
 docs
