@@ -34,8 +34,8 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1
       libphonenumber-js:
-        specifier: ^1.2.15
-        version: 1.7.4
+        specifier: ^1.13.10
+        version: 1.13.10
       nano-staged:
         specifier: ^0.9.0
         version: 0.9.0
@@ -76,8 +76,8 @@ importers:
         specifier: ^1.0.8
         version: 1.0.8
       libphonenumber-js:
-        specifier: ^1.2.15
-        version: 1.7.4
+        specifier: ^1.13.10
+        version: 1.13.10
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -732,8 +732,8 @@ packages:
       canvas:
         optional: true
 
-  libphonenumber-js@1.7.4:
-    resolution: {integrity: sha512-qSNDVGG0NhFX605r5EyPtRyMk2+dNpR0QZDnd6PON0f9VrvVf7LaR+1VeREQYQ3hnl1IX+NCjPzISQzPGB+Oaw==}
+  libphonenumber-js@1.13.10:
+    resolution: {integrity: sha512-xJxrdqvbl2rtn2MaUJrUejz8J7/uZNC0V77oks2LxYrO/+ZtVpRmz+fEQMuu6VusnEB1fmpByiLS1WXecOnAnw==}
     hasBin: true
 
   lightningcss-android-arm64@1.33.0:
@@ -823,9 +823,6 @@ packages:
 
   mdn-data@2.27.1:
     resolution: {integrity: sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==}
-
-  minimist@1.2.5:
-    resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
 
   mrmime@2.0.1:
     resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
@@ -955,18 +952,12 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  sax@1.2.4:
-    resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
-
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
   scheduler@0.13.2:
     resolution: {integrity: sha512-qK5P8tHS7vdEMCW5IPyt8v9MJOHqTrOUgPXib7tqm9vh834ibBX5BNhwkplX/0iOzHW5sXyluehYfS9yrkz9+w==}
-
-  semver-compare@1.0.0:
-    resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -1207,13 +1198,6 @@ packages:
   xml-name-validator@5.0.0:
     resolution: {integrity: sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==}
     engines: {node: '>=18'}
-
-  xml2js@0.4.19:
-    resolution: {integrity: sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==}
-
-  xmlbuilder@9.0.7:
-    resolution: {integrity: sha512-7YXTQc3P2l9+0rjaUbLwMKRhtmwg1M1eDf6nag7urC7pIPYLD9W/jmzQ4ptRSUbodw5S0jfoGTflLemQibSpeQ==}
-    engines: {node: '>=4.0'}
 
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
@@ -1677,11 +1661,7 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  libphonenumber-js@1.7.4:
-    dependencies:
-      minimist: 1.2.5
-      semver-compare: 1.0.0
-      xml2js: 0.4.19
+  libphonenumber-js@1.13.10: {}
 
   lightningcss-android-arm64@1.33.0:
     optional: true
@@ -1743,8 +1723,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   mdn-data@2.27.1: {}
-
-  minimist@1.2.5: {}
 
   mrmime@2.0.1: {}
 
@@ -1883,8 +1861,6 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.3
       '@rolldown/binding-win32-x64-msvc': 1.2.3
 
-  sax@1.2.4: {}
-
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
@@ -1893,8 +1869,6 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-
-  semver-compare@1.0.0: {}
 
   siginfo@2.0.0: {}
 
@@ -2047,13 +2021,6 @@ snapshots:
   ws@8.21.3: {}
 
   xml-name-validator@5.0.0: {}
-
-  xml2js@0.4.19:
-    dependencies:
-      sax: 1.2.4
-      xmlbuilder: 9.0.7
-
-  xmlbuilder@9.0.7: {}
 
   xmlchars@2.2.0: {}
 
