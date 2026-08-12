@@ -25,9 +25,8 @@
   },
   "scripts": {
     "build": "tsdown src/index.ts --format esm --target es2022 --platform neutral --dts --clean",
-    "test:unit": "vitest run --exclude tests/package.test.ts",
-    "test:package": "pnpm run build && vitest run tests/package.test.ts",
-    "test": "pnpm run test:ts && pnpm run test:unit && pnpm run test:package",
+    "test:unit": "vitest run",
+    "test": "pnpm run test:ts && pnpm run test:unit",
     "test:ts": "tsc",
     "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm test && pnpm run build"
@@ -38,7 +37,6 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-test-renderer": "^16.9.2",
     "alea": "^0.0.9",
-    "emotion": "^10.0.17",
     "jsdom": "^29.1.1",
     "libphonenumber-js": "^1.2.15",
     "nano-staged": "^0.9.0",
