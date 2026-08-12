@@ -112,6 +112,37 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(jsdom@29.1.1)(vite@8.2.1(@types/node@26.2.0))
 
+  website:
+    dependencies:
+      '@oddbird/popover-polyfill':
+        specifier: ^0.7.1
+        version: 0.7.1
+      interestfor:
+        specifier: ^1.0.8
+        version: 1.0.8
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
+      react:
+        specifier: ~16.8.0
+        version: 16.8.2
+      react-dom:
+        specifier: ~16.8.0
+        version: 16.8.2(react@16.8.2)
+      rifm:
+        specifier: workspace:*
+        version: link:..
+    devDependencies:
+      '@types/prismjs':
+        specifier: ^1.26.5
+        version: 1.26.6
+      vite:
+        specifier: ^8.2.1
+        version: 8.2.1(@types/node@26.2.0)
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.2.0)(jsdom@29.1.1)(vite@8.2.1(@types/node@26.2.0))
+
 packages:
 
   '@ampproject/toolbox-core@2.3.0':
@@ -732,6 +763,9 @@ packages:
       react-refresh: 0.8.2
       webpack: ^4
 
+  '@oddbird/popover-polyfill@0.7.1':
+    resolution: {integrity: sha512-H3P1qJpbJiAToQt6dAjdTzWP327YPGjI286pmn+U/eSfE4krGAMHYz3OL+VYSQhwCsbSLkik9GPZGNvtdeEetQ==}
+
   '@oxc-project/types@0.143.0':
     resolution: {integrity: sha512-u6JZdLBTLotrNC9Vd6vPssINdzcCzleKAH6EJKImQb7GtYvX5keN2dxkoK44stCc4tffE6QQRtZTXVSzsLUlWA==}
 
@@ -994,6 +1028,9 @@ packages:
 
   '@types/node@26.2.0':
     resolution: {integrity: sha512-5IviulTZeRNp2vAJ514cc/HUlY5nZ9fCbq9DMyC52BrhFZACo3nI0R7qBxhQmo/d27NFe96ur/b7Wwxklda+kg==}
+
+  '@types/prismjs@1.26.6':
+    resolution: {integrity: sha512-vqlvI7qlMvcCBbVe0AKAb4f97//Hy0EBTaiW8AalRnG/xAN5zOiWWyrNqNXeq8+KAuvRewjCVY1+IPxk4RdNYw==}
 
   '@types/prop-types@15.5.8':
     resolution: {integrity: sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==}
@@ -2238,6 +2275,9 @@ packages:
     resolution: {integrity: sha512-5fJMWEmikSYu0nv/flMc475MhGbB7TSPd/2IpFV4I4rMklboCH2rQjYY5kKiYGHqUF9gvaambupcJFFG9dvReg==}
     engines: {node: '>=6.0.0'}
 
+  interestfor@1.0.8:
+    resolution: {integrity: sha512-qYwTmxzDnrosGZX/1lDEOsAv73aYiFKLniN20SS78588WhRMHj8z7u2uFe9QZPIVmkCyIbJwiMQ/85Up7hrseQ==}
+
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
 
@@ -3193,6 +3233,10 @@ packages:
   prepend-http@1.0.4:
     resolution: {integrity: sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==}
     engines: {node: '>=0.10.0'}
+
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
 
   private@0.1.8:
     resolution: {integrity: sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==}
@@ -5598,6 +5642,8 @@ snapshots:
       react-refresh: 0.8.2
       webpack: 4.43.0
 
+  '@oddbird/popover-polyfill@0.7.1': {}
+
   '@oxc-project/types@0.143.0': {}
 
   '@oxfmt/binding-android-arm-eabi@0.63.0':
@@ -5748,6 +5794,8 @@ snapshots:
   '@types/node@26.2.0':
     dependencies:
       undici-types: 8.3.0
+
+  '@types/prismjs@1.26.6': {}
 
   '@types/prop-types@15.5.8': {}
 
@@ -7321,6 +7369,8 @@ snapshots:
       through: 2.3.8
     optional: true
 
+  interestfor@1.0.8: {}
+
   invariant@2.2.4:
     dependencies:
       loose-envify: 1.4.0
@@ -8438,6 +8488,8 @@ snapshots:
     optional: true
 
   prepend-http@1.0.4: {}
+
+  prismjs@1.30.0: {}
 
   private@0.1.8: {}
 

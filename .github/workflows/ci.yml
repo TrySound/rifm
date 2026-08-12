@@ -37,3 +37,7 @@ jobs:
         run: pnpm test
       - name: Build
         run: pnpm run build
+      - name: Test website
+        run: pnpm --dir website test
+      - name: Build website
+        run: pnpm --dir website build --base /rifm/

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Rifm is a tiny React input formatting and masking library that preserves cursor position."
+    />
+    <meta name="theme-color" content="#0b0c10" />
+    <title>Rifm — React input format and mask</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <main>
+        <section class="hero section-wrap">
+          <div class="hero-glow" aria-hidden="true"></div>
+          <div class="hero-content">
+            <div class="eyebrow"><i></i> Rifm / React input format &amp; mask</div>
+            <h1>Formatting that keeps<br /><span>the cursor in place.</span></h1>
+            <p class="hero-copy">
+              Rifm turns any input into a precise formatter or mask. Tiny, dependency-free,
+              and designed around the detail that matters: where your cursor lands next.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-button" href="#get-started">Get started <span>↓</span></a>
+              <a
+                class="secondary-button"
+                href="https://github.com/TrySound/rifm"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on GitHub <span>↗</span>
+              </a>
+            </div>
+            <div class="install-command hero-install">
+              <code id="install-command"><span>$</span> pnpm add rifm</code>
+              <button
+                type="button"
+                data-copy-target="install-command"
+                interestfor="copy-install-tooltip"
+                aria-label="Copy install command"
+                style="anchor-name: --copy-install"
+              >
+                Copy
+              </button>
+              <span
+                class="copy-tooltip"
+                id="copy-install-tooltip"
+                popover="hint"
+                role="tooltip"
+                style="position-anchor: --copy-install"
+              >Copy command</span>
+            </div>
+          </div>
+
+          <div class="hero-stage">
+            <div class="stage-lines" aria-hidden="true"></div>
+            <div class="cursor-story">
+              <div class="story-head">
+                <span>cursor-preservation.tsx</span>
+                <div><i></i><i></i><i></i></div>
+              </div>
+              <div class="story-body">
+                <div class="story-step">
+                  <span class="story-caption">You type</span>
+                  <div class="story-value"><span>1234</span><b class="cursor"></b><span>56</span></div>
+                </div>
+                <svg class="story-arrow" viewBox="0 0 30 68" aria-hidden="true">
+                  <path d="M15 2v59" />
+                  <path d="m8 53 7 8 7-8" />
+                </svg>
+                <div class="story-step">
+                  <span class="story-caption">Rifm returns</span>
+                  <div class="story-value result"><span>123,4</span><b class="cursor"></b><span>56</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="why section-wrap" id="why-rifm">
+          <div class="section-heading compact">
+            <div>
+              <span class="section-index">01 / WHY RIFM</span>
+              <h2>One small job.<br /><em>Done carefully.</em></h2>
+            </div>
+          </div>
+          <div class="principles">
+            <article>
+              <span>↳</span>
+              <h3>Cursor aware</h3>
+              <p>
+                Formatting never feels like fighting the input. Rifm tracks accepted characters
+                and restores the natural cursor position.
+              </p>
+            </article>
+            <article>
+              <span>◇</span>
+              <h3>Input agnostic</h3>
+              <p>
+                Native inputs, your design system, or a third-party text field. Rifm only supplies
+                value and onChange.
+              </p>
+            </article>
+            <article>
+              <span>±</span>
+              <h3>Format anything</h3>
+              <p>
+                Numbers, dates, phone numbers, card masks, casing rules, and domain-specific values
+                all use the same small API.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="signal-strip" aria-label="Package highlights">
+          <div><strong>~800b</strong><span>minified + gzip</span></div>
+          <div><strong>0</strong><span>dependencies</span></div>
+          <div><strong>2 APIs</strong><span>hook + component</span></div>
+          <div><strong>MIT</strong><span>open source</span></div>
+        </section>
+
+        <section class="examples section-wrap" id="get-started">
+          <div class="section-heading">
+            <div>
+              <span class="section-index">02 / GET STARTED</span>
+              <h2>Learn by typing.<br /><em>Then make it yours.</em></h2>
+            </div>
+            <p>
+              Every example runs locally with Rifm and includes the complete component. Edit from
+              the middle, delete separators, or paste a messy value.
+            </p>
+          </div>
+
+          <div class="example-grid">
+            <article class="example-card">
+              <div class="card-title"><span>01</span><h3>Number formatting</h3><b>Most common</b></div>
+              <div class="demo-surface"><div data-demo="number"></div></div>
+              <div class="code-sample">
+                <button
+                  class="code-copy"
+                  type="button"
+                  data-copy-target="code-number"
+                  interestfor="copy-number-tooltip"
+                  aria-label="Copy number formatting example"
+                  style="anchor-name: --copy-number"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="7" y="3" width="9" height="11" rx="2" />
+                    <path d="M13 16H6a2 2 0 0 1-2-2V7" />
+                  </svg>
+                </button>
+                <span
+                  class="copy-tooltip"
+                  id="copy-number-tooltip"
+                  popover="hint"
+                  role="tooltip"
+                  style="position-anchor: --copy-number"
+                >Copy code</span>
+                <pre><code id="code-number" class="language-tsx">import { useState } from 'react'
+import { useRifm } from 'rifm'
+
+const formatNumber = (value: string) =&gt;
+  value
+    .replace(/\D/g, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+export function PriceInput() {
+  const [value, setValue] = useState('240000')
+  const rifm = useRifm({
+    value,
+    onChange: setValue,
+    format: formatNumber,
+    accept: /\d/g,
+  })
+
+  return (
+    &lt;label&gt;
+      Invoice total
+      &lt;span&gt;$&lt;/span&gt;
+      &lt;input {...rifm} inputMode="numeric" /&gt;
+    &lt;/label&gt;
+  )
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="example-card">
+              <div class="card-title"><span>02</span><h3>Phone number</h3></div>
+              <div class="demo-surface"><div data-demo="phone"></div></div>
+              <div class="code-sample">
+                <button
+                  class="code-copy"
+                  type="button"
+                  data-copy-target="code-phone"
+                  interestfor="copy-phone-tooltip"
+                  aria-label="Copy phone number example"
+                  style="anchor-name: --copy-phone"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="7" y="3" width="9" height="11" rx="2" />
+                    <path d="M13 16H6a2 2 0 0 1-2-2V7" />
+                  </svg>
+                </button>
+                <span
+                  class="copy-tooltip"
+                  id="copy-phone-tooltip"
+                  popover="hint"
+                  role="tooltip"
+                  style="position-anchor: --copy-phone"
+                >Copy code</span>
+                <pre><code id="code-phone" class="language-tsx">import { useState } from 'react'
+import { Rifm } from 'rifm'
+
+const digits = (value: string) =&gt;
+  value.replace(/\D/g, '').slice(0, 10)
+
+const formatPhone = (value: string) =&gt; {
+  const phone = digits(value)
+  if (phone.length &lt; 4) return phone
+  if (phone.length &lt; 7)
+    return `(${phone.slice(0, 3)}) ${phone.slice(3)}`
+  return `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`
+}
+
+export function PhoneInput() {
+  const [phone, setPhone] = useState('4155552671')
+  return (
+    &lt;Rifm value={phone} onChange={setPhone} accept={/\d/g} format={formatPhone}&gt;
+      {props =&gt; &lt;input {...props} inputMode="tel" /&gt;}
+    &lt;/Rifm&gt;
+  )
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="example-card">
+              <div class="card-title"><span>03</span><h3>Date mask</h3></div>
+              <div class="demo-surface"><div data-demo="date"></div></div>
+              <div class="code-sample">
+                <button
+                  class="code-copy"
+                  type="button"
+                  data-copy-target="code-date"
+                  interestfor="copy-date-tooltip"
+                  aria-label="Copy date mask example"
+                  style="anchor-name: --copy-date"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="7" y="3" width="9" height="11" rx="2" />
+                    <path d="M13 16H6a2 2 0 0 1-2-2V7" />
+                  </svg>
+                </button>
+                <span
+                  class="copy-tooltip"
+                  id="copy-date-tooltip"
+                  popover="hint"
+                  role="tooltip"
+                  style="position-anchor: --copy-date"
+                >Copy code</span>
+                <pre><code id="code-date" class="language-tsx">import { useState } from 'react'
+import { useRifm } from 'rifm'
+
+const formatDate = (value: string) =&gt; {
+  const digits = value.replace(/\D/g, '').slice(0, 8)
+  return [
+    digits.slice(0, 2),
+    digits.slice(2, 4),
+    digits.slice(4),
+  ].filter(Boolean).join(' / ')
+}
+
+export function DateInput() {
+  const [date, setDate] = useState('12082026')
+  const rifm = useRifm({
+    value: date,
+    onChange: setDate,
+    format: formatDate,
+    accept: /\d/g,
+  })
+
+  return &lt;input {...rifm} inputMode="numeric" placeholder="DD / MM / YYYY" /&gt;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="example-card">
+              <div class="card-title"><span>04</span><h3>Text enforcement</h3></div>
+              <div class="demo-surface"><div data-demo="uppercase"></div></div>
+              <div class="code-sample">
+                <button
+                  class="code-copy"
+                  type="button"
+                  data-copy-target="code-enforcement"
+                  interestfor="copy-enforcement-tooltip"
+                  aria-label="Copy text enforcement example"
+                  style="anchor-name: --copy-enforcement"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="7" y="3" width="9" height="11" rx="2" />
+                    <path d="M13 16H6a2 2 0 0 1-2-2V7" />
+                  </svg>
+                </button>
+                <span
+                  class="copy-tooltip"
+                  id="copy-enforcement-tooltip"
+                  popover="hint"
+                  role="tooltip"
+                  style="position-anchor: --copy-enforcement"
+                >Copy code</span>
+                <pre><code id="code-enforcement" class="language-tsx">import { useState } from 'react'
+import { Rifm } from 'rifm'
+
+const uppercaseLatin = (value: string) =&gt;
+  value.replace(/[^a-z ]/gi, '').toUpperCase()
+
+export function AirportInput() {
+  const [airport, setAirport] = useState('london heathrow')
+
+  return (
+    &lt;Rifm
+      value={airport}
+      onChange={setAirport}
+      accept={/[a-z ]/gi}
+      format={value =&gt; value}
+      replace={uppercaseLatin}
+    &gt;
+      {props =&gt; &lt;input {...props} placeholder="TYPE A NAME" /&gt;}
+    &lt;/Rifm&gt;
+  )
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <span class="visually-hidden" id="copy-status" aria-live="polite"></span>
+
+      <footer>
+        <span class="brand">rifm</span>
+        <p>React input format &amp; mask. Released under MIT.</p>
+        <div>
+          <a href="https://npmx.dev/package/rifm">npmx</a>
+          <a href="https://github.com/TrySound/rifm">GitHub</a>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
