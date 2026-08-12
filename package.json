@@ -13,38 +13,32 @@
     "url": "https://github.com/TrySound/rifm.git"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
-  "main": "dist/rifm.cjs.js",
-  "module": "dist/rifm.esm.js",
-  "typings": "./dist/index.d.ts",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "build:code": "rollup -c",
-    "build:types": "tsc -p tsconfig.build.json",
-    "build": "rimraf dist && pnpm run build:code && pnpm run build:types",
-    "test:unit": "vitest run",
-    "test": "pnpm run test:ts && pnpm run test:unit",
+    "build": "tsdown src/index.ts --format esm --target es2022 --platform neutral --dts --clean",
+    "test:unit": "vitest run --exclude tests/package.test.ts",
+    "test:package": "pnpm run build && vitest run tests/package.test.ts",
+    "test": "pnpm run test:ts && pnpm run test:unit && pnpm run test:package",
     "test:ts": "tsc",
     "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm test && pnpm run build"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@rollup/plugin-babel": "^5.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.3",
-    "@rollup/plugin-replace": "^2.3.2",
     "@types/node": "26.2.0",
     "@types/react": "16.7.18",
     "@types/react-dom": "^16.9.8",
     "@types/react-test-renderer": "^16.9.2",
     "alea": "^0.0.9",
-    "brotli-size": "^4.0.0",
     "emotion": "^10.0.17",
-    "gzip-size": "^5.1.1",
     "jsdom": "^29.1.1",
     "libphonenumber-js": "^1.2.15",
     "nano-staged": "^0.9.0",
@@ -52,10 +46,8 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-test-renderer": "^16.8.2",
-    "rimraf": "^2.6.1",
-    "rollup": "^2.10.8",
-    "rollup-plugin-terser": "^6.0.1",
     "simple-git-hooks": "^2.13.1",
+    "tsdown": "^0.22.14",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10"
   },
