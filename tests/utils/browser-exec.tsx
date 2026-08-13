@@ -3,7 +3,26 @@ import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import { userEvent } from "vitest/browser";
 import { Rifm } from "../../src";
-import { InputCommand, renderInputState } from "./input-emulator";
+
+export type InputCommand =
+  | { type: "PUT_SYMBOL"; payload: string }
+  | { type: "MOVE_CARET"; payload: number }
+  | { type: "BACKSPACE" }
+  | { type: "DELETE" };
+
+const renderInputState = (value: string, selectionStart: number, selectionEnd: number) => {
+  if (selectionStart === selectionEnd) {
+    return value.substring(0, selectionStart) + "|" + value.substring(selectionStart);
+  }
+
+  return (
+    value.substring(0, selectionStart) +
+    "[" +
+    value.substring(selectionStart, selectionEnd) +
+    "]" +
+    value.substring(selectionEnd)
+  );
+};
 
 export interface BrowserExecProps {
   accept?: RegExp;
@@ -89,7 +108,7 @@ export const createBrowserExec = (props: BrowserExecProps): BrowserExec => {
       throw Error("rifm browser input does not support selection");
     }
 
-    return renderInputState({ value, selectionStart, selectionEnd });
+    return renderInputState(value, selectionStart, selectionEnd);
   };
 
   let cleanedUp = false;

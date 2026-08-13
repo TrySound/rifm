@@ -1,5 +1,7 @@
 packages:
   - website
 
+autoInstallPeers: false
+
 allowBuilds:
   core-js-pure: true
