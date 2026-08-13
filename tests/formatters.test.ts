@@ -1,16 +1,17 @@
-import Alea from "alea";
+import { uniformFloat64 } from "pure-rand/distribution/uniformFloat64";
+import { xoroshiro128plus } from "pure-rand/generator/xoroshiro128plus";
 import { expect, test } from "vitest";
 import { formatFixedPointNumber, formatFloatingPointNumber } from "./format";
 
 test("formatNumber check that format(format(v)) === format(v) in case of parse is identity", () => {
-  const prng = new Alea(1000);
+  const prng = xoroshiro128plus(1000);
 
   for (let scale = 0; scale !== 5; ++scale) {
     const formatNonFixed = (v: string) => formatFloatingPointNumber(v, scale);
     const formatFixed = (v: string) => formatFixedPointNumber(v, scale);
 
     for (let i = 0; i != 1000; ++i) {
-      const val = prng() * i;
+      const val = uniformFloat64(prng) * i;
       expect(formatNonFixed(formatNonFixed(`${val}`))).toEqual(formatNonFixed(`${val}`));
       expect(formatFixed(formatFixed(`${val}`))).toEqual(formatFixed(`${val}`));
     }
@@ -18,14 +19,14 @@ test("formatNumber check that format(format(v)) === format(v) in case of parse i
 });
 
 test("formatNumber check that format doesn't change original value", () => {
-  const prng = new Alea(1000);
+  const prng = xoroshiro128plus(1000);
   const parse = (str: string) => str.replace(/[^\d.]+/g, "");
 
   for (let scale = 0; scale !== 5; ++scale) {
     const formatNonFixed = (v: string) => formatFloatingPointNumber(v, scale);
     const formatFixed = (v: string) => formatFixedPointNumber(v, scale);
     for (let i = 0; i != 1000; ++i) {
-      const val = prng() * i;
+      const val = uniformFloat64(prng) * i;
       const [head, tail] = val.toString().split(".");
       const expectVal = Number.parseFloat(`${head}.${tail != null ? tail.slice(0, scale) : ""}`);
 
@@ -36,11 +37,11 @@ test("formatNumber check that format doesn't change original value", () => {
 });
 
 test("formatNumber fixed must return equal to scale amount of digits at fractional part", () => {
-  const prng = new Alea(100230);
+  const prng = xoroshiro128plus(100230);
   for (let scale = 0; scale !== 5; ++scale) {
     const formatFixed = (v: string) => formatFixedPointNumber(v, scale);
     for (let i = 0; i !== 1000; ++i) {
-      const val = prng() * i;
+      const val = uniformFloat64(prng) * i;
       const [, tail] = formatFixed(`${val}`).toString().split(".");
       expect(tail != null ? tail.length : 0).toEqual(scale);
     }
