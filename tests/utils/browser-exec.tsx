@@ -1,8 +1,9 @@
 import * as React from "react";
+import { flushSync } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { userEvent } from "vitest/browser";
 import { Rifm } from "../../src";
 import { InputCommand, renderInputState } from "./input-emulator";
-import { mount } from "./react-dom-test-mount";
 
 export interface BrowserExecProps {
   accept?: RegExp;
@@ -46,7 +47,8 @@ export const createBrowserExec = (props: BrowserExecProps): BrowserExec => {
     );
   };
 
-  const unmount = mount(<Component />, container);
+  const root = createRoot(container);
+  flushSync(() => root.render(<Component />));
 
   const input = container.querySelector("input");
   if (input == null) {
@@ -94,7 +96,7 @@ export const createBrowserExec = (props: BrowserExecProps): BrowserExec => {
   const cleanup = () => {
     if (cleanedUp) return;
     cleanedUp = true;
-    unmount();
+    root.unmount();
     container.remove();
   };
 
