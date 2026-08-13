@@ -34,9 +34,9 @@
   },
   "devDependencies": {
     "@types/node": "26.2.0",
-    "@types/react": "16.7.18",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-test-renderer": "^16.9.2",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@types/react-test-renderer": "^19.1.0",
     "@vitest/browser-playwright": "4.1.10",
     "alea": "^0.0.9",
     "jsdom": "^29.1.1",
