@@ -146,5 +146,3 @@ These will be passed into the `children` render prop for the Rifm component as n
 | ------------ | :--------------------- | :------ | :--------------------------------------------------------------- |
 | **value**    | string                 |         | A formatted string value to pass as a prop to your input element |
 | **onChange** | SyntheticEvent => void |         | The change handler to pass as a prop to your input element       |
-
-See the [Demo](https://realadvisor.github.io/rifm) there are a lot of examples there.
