@@ -3,7 +3,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   optimizeDeps: {
-    include: ["libphonenumber-js", "react", "react-dom"],
+    include: ["libphonenumber-js", "react", "react-dom", "react-dom/client"],
   },
   oxc: {
     jsx: {
