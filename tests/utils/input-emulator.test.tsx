@@ -33,7 +33,9 @@ test("Input emulator commands test", () => {
     );
   };
 
-  TestRenderer.create(<Component />);
+  act(() => {
+    TestRenderer.create(<Component />);
+  });
 
   const exec = (cmd: InputCommand) => {
     act(() => {
@@ -111,7 +113,9 @@ test("Input emulator work as React if values dont match", () => {
     );
   };
 
-  TestRenderer.create(<Component />);
+  act(() => {
+    TestRenderer.create(<Component />);
+  });
 
   const exec = (cmd: InputCommand) => {
     act(() => {
