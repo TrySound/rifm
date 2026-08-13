@@ -5,15 +5,10 @@ import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { useRifm } from "rifm";
 import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
 import "./styles.css";
-
-interface HintPopover extends HTMLElement {
-  hidePopover?: () => void;
-  showPopover?: () => void;
-}
 
 const resetTimers = new WeakMap<HTMLElement, number>();
 let feedbackGeneration = 0;
@@ -26,7 +21,7 @@ const matchesState = (tooltip: HTMLElement, selector: string) => {
   }
 };
 
-const showFeedback = (tooltip: HintPopover, message: string) => {
+const showFeedback = (tooltip: HTMLElement, message: string) => {
   const generation = ++feedbackGeneration;
   const defaultMessage = tooltip.dataset.defaultMessage ?? tooltip.textContent ?? "Copy code";
   const status = document.getElementById("copy-status");
@@ -63,7 +58,7 @@ const showFeedback = (tooltip: HintPopover, message: string) => {
 
 const copyFromButton = async (button: HTMLButtonElement) => {
   const tooltipId = button.getAttribute("interestfor");
-  const tooltip = tooltipId ? (document.getElementById(tooltipId) as HintPopover | null) : null;
+  const tooltip = tooltipId ? document.getElementById(tooltipId) : null;
   const targetId = button.dataset.copyTarget;
   const text = targetId ? document.getElementById(targetId)?.textContent?.trim() : "";
   if (!tooltip || !text) return;
@@ -146,7 +141,7 @@ const DemoInput = ({ kind }: { kind: DemoKind }) => {
 };
 
 document.querySelectorAll<HTMLElement>("[data-demo]").forEach((element) => {
-  ReactDOM.render(<DemoInput kind={element.dataset.demo as DemoKind} />, element);
+  createRoot(element).render(<DemoInput kind={element.dataset.demo as DemoKind} />);
 });
 
 const storyValue = document.querySelector<HTMLElement>("[data-story-value]");
