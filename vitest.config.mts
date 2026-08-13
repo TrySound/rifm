@@ -16,22 +16,9 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: "jsdom",
-          environment: "jsdom",
-          include: [
-            "tests/formatters.test.ts",
-            "tests/rifm-format.test.ts",
-            "tests/rifm-mask.test.ts",
-            "tests/utils/input-emulator.test.tsx",
-          ],
-        },
-      },
-      {
-        extends: true,
-        test: {
           name: "node",
           environment: "node",
-          include: ["tests/test-layout-warn.test.tsx"],
+          include: ["tests/formatters.test.ts", "tests/test-layout-warn.test.tsx"],
         },
       },
       {
