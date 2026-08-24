@@ -30,7 +30,7 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
   const userValue = replace ? replace(props.format(props.value)) : props.format(props.value);
 
   // state of delete button see comments below about inputType support
-  const isDeleleteButtonDownRef = React.useRef(false);
+  const isDeleteButtonDownRef = React.useRef(false);
 
   const onChange = ((evt: React.ChangeEvent<InputElement>) => {
     if (process.env.NODE_ENV !== "production") {
@@ -50,7 +50,7 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
       eventValue, // eventValue
       evt.target, // input
       eventValue.length > userValue.length, // isSizeIncreaseOperation
-      isDeleleteButtonDownRef.current, // isDeleleteButtonDown
+      isDeleteButtonDownRef.current, // isDeleteButtonDown
       userValue === props.format(eventValue), // isNoOperation
     ];
 
@@ -83,7 +83,7 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
         eventValue,
         input,
         isSizeIncreaseOperation,
-        isDeleleteButtonDown,
+        isDeleteButtonDown,
         // No operation means that value itself hasn't been changed, BTW cursor, selection etc can be changed
         isNoOperation,
       ] = valueRef.current;
@@ -92,8 +92,8 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
       const selectionStart = input.selectionStart == null ? 0 : input.selectionStart;
 
       // this usually occurs on deleting special symbols like ' here 123'123.00
-      // in case of isDeleleteButtonDown cursor should move differently vs backspace
-      const deleteWasNoOp = isDeleleteButtonDown && isNoOperation;
+      // in case of isDeleteButtonDown cursor should move differently vs backspace
+      const deleteWasNoOp = isDeleteButtonDown && isNoOperation;
 
       const valueAfterSelectionStart = eventValue.slice(selectionStart);
 
@@ -189,7 +189,7 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
         // it becomes "56-|12-43" with this code, and "56|-12-43" without
         if (
           props.mask != null &&
-          (isSizeIncreaseOperation || (isDeleleteButtonDown && !deleteWasNoOp))
+          (isSizeIncreaseOperation || (isDeleteButtonDown && !deleteWasNoOp))
         ) {
           while (formattedValue[start] && clean(formattedValue[start]) === "") {
             start += 1;
@@ -210,13 +210,13 @@ export const useRifm = <E extends unknown = InputElement>(props: RifmArgs): Rifm
     // firefox track https://bugzilla.mozilla.org/show_bug.cgi?id=1447239
     const handleKeyDown = (evt: KeyboardEvent) => {
       if (evt.code === "Delete") {
-        isDeleleteButtonDownRef.current = true;
+        isDeleteButtonDownRef.current = true;
       }
     };
 
     const handleKeyUp = (evt: KeyboardEvent) => {
       if (evt.code === "Delete") {
-        isDeleleteButtonDownRef.current = false;
+        isDeleteButtonDownRef.current = false;
       }
     };
 
