@@ -1,86 +1,18 @@
-# RIFM - React Input Format & Mask
+# RIFM — React Input Format & Mask
 
-Is a tiny (≈ 800b) component (and hook) to transform any input component
-into formatted or masked input.
+A small, dependency-free React hook and component for building formatted and masked inputs without losing the cursor position.
 
-[Demo](https://trysound.github.io/rifm)
+[Live demo](https://trysound.github.io/rifm) · [npm](https://www.npmjs.com/package/rifm) · [MIT license](LICENSE)
 
-## Highlights
+## Why RIFM?
 
-- Requires React 16.8+
-- Dependency free
-- Tiny (≈ 800b)
-- Supports any [input](https://trysound.github.io/rifm#material-ui).
-- Can [mask](https://trysound.github.io/rifm#date-format) input,
-  [format](https://trysound.github.io/rifm#number-format) and [more](https://trysound.github.io/rifm#case-enforcement)
-- Small readable source
-- flow + typescript definitions
-
-## Example
-
-Rifm offers both a Render Prop and a Hook API:
-
-### Render Prop
-
-```js
-import { Rifm } from 'rifm';
-import { TextField } from '@material-ui/core';
-
-const numberFormat = (str: string) => {
-  const r = parseInt(str.replace(/[^\d]+/gi, ''), 10);
-  return r ? r.toLocaleString('en') : '';
-}
-
-...
-
-  const [value, setValue] = React.useState('')
-
-  <Rifm
-    value={value}
-    onChange={setValue}
-    format={numberFormat}
-  >
-    {({ value, onChange }) => (
-      <TextField
-        type="tel"
-        value={value}
-        onChange={onChange}
-      />
-    )}
-  </Rifm>
-
-...
-```
-
-### Hook
-
-```js
-import { useRifm } from 'rifm';
-import { TextField } from '@material-ui/core';
-
-const numberFormat = (str: string) => {
-  const r = parseInt(str.replace(/[^\d]+/gi, ''), 10);
-  return r ? r.toLocaleString('en') : '';
-}
-
-...
-
-  const [value, setValue] = React.useState('')
-
-  const rifm = useRifm({
-    value,
-    onChange: setValue,
-    format: numberFormat
-  })
-
-  <TextField
-    type="tel"
-    value={rifm.value}
-    onChange={rifm.onChange}
-  />
-
-...
-```
+- Keeps the caret in the expected place while formatting
+- Works with native inputs, textareas, and custom input components
+- Supports formatting, masks, case enforcement, and other transformations
+- Provides both a hook and a render-prop component
+- Has no runtime dependencies and is about 1.4 kB gzipped
+- Includes TypeScript declarations
+- Supports React 16.8 and newer
 
 ## Install
 
@@ -88,61 +20,144 @@ const numberFormat = (str: string) => {
 pnpm add rifm
 ```
 
+You can also install it with `npm install rifm` or `yarn add rifm`.
+
+## Quick start
+
+RIFM is controlled: keep the formatted value in state, pass it to `useRifm`, and attach the returned props to your input.
+
+```tsx
+import { useState } from "react";
+import { useRifm } from "rifm";
+
+const formatInteger = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export function PriceInput() {
+  const [value, setValue] = useState("");
+  const rifm = useRifm<HTMLInputElement>({
+    value,
+    onChange: setValue,
+    format: formatInteger,
+  });
+
+  return <input {...rifm} aria-label="Price" inputMode="numeric" placeholder="0" type="text" />;
+}
+```
+
+The `onChange` callback receives the formatted string—not the React change event.
+
+> [!IMPORTANT]
+> Use `type="text"` with an appropriate [`inputMode`](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode). RIFM does not support `type="number"` or `type="date"` because those controls do not expose the selection APIs needed to restore the caret.
+
+## Render-prop API
+
+If hooks are not convenient, use the `Rifm` component. It accepts the same options and passes input props to its child function.
+
+```tsx
+import { useState } from "react";
+import { Rifm } from "rifm";
+
+export function PriceInput() {
+  const [value, setValue] = useState("");
+
+  return (
+    <Rifm value={value} onChange={setValue} format={formatInteger}>
+      {({ value, onChange }) => (
+        <input type="text" inputMode="numeric" value={value} onChange={onChange} />
+      )}
+    </Rifm>
+  );
+}
+```
+
+Because RIFM only supplies `value` and `onChange`, the input can be a native element or any component that accepts compatible props.
+
 ## API
 
-### Terminology
+Both `useRifm(options)` and `<Rifm {...options}>` accept the following options.
 
-Rifm is based on simple idea (**\***):
+### Required options
 
-- format operation applied to input value after edit doesn't change the order of some symbols before cursor
+| Option     | Type                        | Description                           |
+| ---------- | --------------------------- | ------------------------------------- |
+| `value`    | `string`                    | The controlled input value.           |
+| `onChange` | `(value: string) => void`   | Called with the next formatted value. |
+| `format`   | `(value: string) => string` | Formats the value after every edit.   |
 
-**\*** _This is not always true, but we solve some edge cases where it's not._
+### Optional options
 
-> Imagine you have simple integer number formatter with **\`** as thousands separator
-> and current input state is _123\`4_**|**_67_ _("|" shows current cursor position)_.
->
-> User press _5_ then formatted input must be equal to _1\`234\`5_**|**_67_.
->
-> The overall order of elements has changed (was _1->2->3->\`->4->..._ became _1->\`->2->3->4..._)
-> but the order of digits before cursor hasn't changed (was _1->2->3->4_ and hasn't changed).
+| Option     | Type                        | Default | Description                                                                                                      |
+| ---------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
+| `accept`   | `RegExp`                    | `/\d/g` | Matches characters whose order RIFM tracks when restoring the caret. Use a global regular expression.            |
+| `replace`  | `(value: string) => string` | —       | Post-processes the formatted value while preserving the caret, for example to enforce uppercase or replace text. |
+| `append`   | `(value: string) => string` | —       | Post-processes insertions made at the end; useful when a formatter needs to append a separator.                  |
+| `mask`     | `boolean`                   | —       | Enables replacement-style mask editing and caret movement across mask separators.                                |
+| `children` | `(props) => ReactNode`      | —       | Required by `<Rifm>` only. Receives `{ value, onChange }`.                                                       |
 
-The same is true for float numbers formatting, dates and more.
-Symbols with preserved order are different and depends on format.
-We call this kind of symbols - **"accepted"** symbols.
+### Return value
 
-Rifm solves only one task -
-find the right place for cursor after formatting.
+`useRifm` returns the same object passed to the `Rifm` child function:
 
-Knowledge about what symbols are **"accepted"** and cursor position after any user action
-is enough to find the final cursor position.
+```ts
+{
+  value: string;
+  onChange: React.ChangeEventHandler<E>;
+}
+```
 
-Most operations which are not covered with above idea like
-case enforcements, masks guides, floating point _","=>"."_ replacement
-can be done using simple postprocessing step - replace.
-This operation works well if you need to change input value without loosing cursor position.
+Pass both properties to the underlying input.
 
-And finaly masks - masks are usually is format with replace editing mode + some small cursor visual hacks.
+## Accepted characters and caret behavior
 
-### Input Props
+RIFM restores the caret by tracking the characters matched by `accept`. The formatter may insert, remove, or move separators, but it should preserve the order of those accepted characters.
 
-These are accepted by the Rifm component as props and the useRifm hook as named arguments.
+For example, with digits as accepted characters:
 
-| Prop         | type                          | default | Description                                                                                                                                                   |
-| ------------ | :---------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **accept**   | RegExp (optional)             | /\d/g   | Regular expression to detect **"accepted"** symbols                                                                                                           |
-| **format**   | string => string              |         | format function                                                                                                                                               |
-| **value**    | string                        |         | input value                                                                                                                                                   |
-| **onChange** | string => void                |         | event fired on input change                                                                                                                                   |
-| **children** | ({ value, onChange }) => Node |         | value and onChange handler you need to pass to underlying input element                                                                                       |
-| **mask**     | boolean (optional)            |         | use replace input mode if true, use cursor visual hacks if prop provided                                                                                      |
-| **replace**  | string => string (optional)   |         | format postprocessor allows you to fully replace any/all symbol/s preserving cursor                                                                           |
-| **append**   | string => string (optional)   |         | format postprocessor called only if cursor is in the last position and new symbols added, used for specific use-case to add non accepted symbol when you type |
+```text
+Before typing: 1,234|67
+Type "5":      1,2345|67
+Formatted:     1,234,5|67
+```
 
-### Output Props
+The commas move, but the digits before the caret remain in the same order, so RIFM can find the correct position. Set `accept` when formatting something other than digits:
 
-These will be passed into the `children` render prop for the Rifm component as named arguments, and returned from the useRifm hook as an object.
+```tsx
+const rifm = useRifm({
+  value,
+  onChange: setValue,
+  format: (value) => value,
+  replace: (value) => value.replace(/[^a-z ]/gi, "").toUpperCase(),
+  accept: /[a-z ]/gi,
+});
+```
 
-| Prop         | type                   | default | Description                                                      |
-| ------------ | :--------------------- | :------ | :--------------------------------------------------------------- |
-| **value**    | string                 |         | A formatted string value to pass as a prop to your input element |
-| **onChange** | SyntheticEvent => void |         | The change handler to pass as a prop to your input element       |
+Use `replace` for transformations such as case enforcement that change accepted characters themselves.
+
+## TypeScript
+
+The hook and component can infer common input types. For an explicit custom element or component event type, provide the generic parameter:
+
+```tsx
+const inputProps = useRifm<HTMLInputElement>({
+  value,
+  onChange: setValue,
+  format: formatInteger,
+});
+```
+
+## Development
+
+```sh
+pnpm install
+pnpm test
+pnpm run build
+```
+
+The test suite includes TypeScript, unit, and browser tests.
+
+## License
+
+[MIT](LICENSE)
