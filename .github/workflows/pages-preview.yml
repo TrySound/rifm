@@ -1,0 +1,86 @@
+name: Deploy PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Prevent lost updates when multiple previews or production deploy together.
+concurrency:
+  group: pages-publish
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm --dir website run build
+        env:
+          BASE_PATH: /rifm/pr-${{ github.event.pull_request.number }}/
+
+      - name: Publish preview
+        run: >-
+          bash .github/scripts/publish-pages.sh preview website/dist
+          "${{ github.event.pull_request.number }}"
+
+      - name: Add preview link to PR
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            const marker = '<!-- gh-pages-preview -->';
+            const owner = context.repo.owner.toLowerCase();
+            const repo = context.repo.repo;
+            const url = `https://${owner}.github.io/${repo}/pr-${process.env.PR_NUMBER}/`;
+            const body = `${marker}\n🚀 PR preview: ${url}`;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(comment =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  cleanup:
+    if: >-
+      github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Remove preview
+        run: >-
+          bash .github/scripts/publish-pages.sh delete ""
+          "${{ github.event.pull_request.number }}"
