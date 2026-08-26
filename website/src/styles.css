@@ -94,6 +94,8 @@
 
   scroll-behavior: smooth;
   scroll-padding: var(--space-lg);
+  scrollbar-color: var(--color-border-control) transparent;
+  scrollbar-width: thin;
   font-family: var(--font-sans);
   color: var(--color-text-muted);
 
