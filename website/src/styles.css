@@ -92,6 +92,7 @@
   --focus-ring: 2px solid var(--palette-violet);
   --focus-ring-offset: 2px;
 
+  scroll-behavior: smooth;
   scroll-padding: var(--space-lg);
   font-family: var(--font-sans);
   color: var(--color-text-muted);
@@ -104,11 +105,6 @@
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
   }
-}
-
-/* Base */
-html {
-  scroll-behavior: smooth;
 }
 
 body {
