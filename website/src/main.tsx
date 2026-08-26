@@ -8,7 +8,6 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { useRifm } from "rifm";
 import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
-import "./styles.css";
 
 const resetTimers = new WeakMap<HTMLElement, number>();
 let feedbackGeneration = 0;
@@ -123,18 +122,20 @@ const DemoInput = ({ kind }: { kind: DemoKind }) => {
 
   return (
     <span className="field-container">
-      {"prefix" in config && <span className="field-prefix type-mono-value">{config.prefix}</span>}
+      {"prefix" in config && <span className="field-prefix type-label">{config.prefix}</span>}
       <input
         aria-label={config.label}
-        className="field-input type-mono-value"
+        className="field-input type-label"
         inputMode={config.inputMode}
         placeholder={config.placeholder}
         type="text"
         value={rifm.value}
         onChange={rifm.onChange}
       />
-      <span className="live-status type-label">
-        <i /> live
+      <span className="type-label row-sm">
+        <span className="live-status" /> live
+        {/* use gap for fake padding */}
+        <span />
       </span>
     </span>
   );
