@@ -13,7 +13,13 @@
   </head>
   <body class="stack-xl">
     <svg aria-hidden="true" style="display: none">
-      <symbol id="icon-copy" viewBox="0 0 20 20">
+      <symbol
+        id="icon-copy"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
         <rect x="7" y="3" width="9" height="11" rx="2" />
         <path d="M13 16H6a2 2 0 0 1-2-2V7" />
       </symbol>
@@ -75,11 +81,9 @@
       </section>
 
       <section class="section-wrap stack-lg" id="why-rifm">
-        <div class="heading-wrap">
-          <div class="stack-md">
-            <span class="type-label text-accent">01 / WHY RIFM</span>
-            <h2 class="type-heading">One small job. Done carefully.</h2>
-          </div>
+        <div class="heading-wrap stack-md">
+          <span class="type-label text-accent">01 / WHY RIFM</span>
+          <h2 class="type-heading">One small job. Done carefully.</h2>
         </div>
         <div class="triplet">
           <article class="triplet-item stack-sm">
@@ -113,29 +117,21 @@
         </div>
 
         <div class="example-list stack-lg">
-          <article class="stack-md">
+          <article class="example-item stack-md">
             <h3 class="type-title">Number formatting</h3>
             <div data-demo="number"></div>
             <div class="code-sample">
               <button
-                class="code-copy"
-                type="button"
-                data-copy-target="code-number"
+                class="icon-button code-copy"
                 interestfor="copy-number-tooltip"
                 aria-label="Copy number formatting example"
-                style="anchor-name: --copy-number"
+                data-copy-target="code-number"
               >
-                <svg viewBox="0 0 20 20" aria-hidden="true">
-                  <use href="#icon-copy"></use>
+                <svg width="20" height="20" aria-hidden="true">
+                  <use href="#icon-copy" />
                 </svg>
               </button>
-              <span
-                class="copy-tooltip type-subtitle"
-                id="copy-number-tooltip"
-                popover="hint"
-                role="tooltip"
-                style="position-anchor: --copy-number"
-              >
+              <span class="tooltip type-subtitle" id="copy-number-tooltip" popover="hint">
                 Copy code
               </span>
               <pre
@@ -165,29 +161,21 @@ export function PriceInput() {
             </div>
           </article>
 
-          <article class="stack-md">
+          <article class="example-item stack-md">
             <h3 class="type-title">Phone number</h3>
             <div data-demo="phone"></div>
             <div class="code-sample">
               <button
-                class="code-copy"
-                type="button"
-                data-copy-target="code-phone"
+                class="icon-button code-copy"
                 interestfor="copy-phone-tooltip"
                 aria-label="Copy phone number example"
-                style="anchor-name: --copy-phone"
+                data-copy-target="code-phone"
               >
-                <svg viewBox="0 0 20 20" aria-hidden="true">
+                <svg width="20" height="20" aria-hidden="true">
                   <use href="#icon-copy"></use>
                 </svg>
               </button>
-              <span
-                class="copy-tooltip type-subtitle"
-                id="copy-phone-tooltip"
-                popover="hint"
-                role="tooltip"
-                style="position-anchor: --copy-phone"
-              >
+              <span class="tooltip type-subtitle" id="copy-phone-tooltip" popover="hint">
                 Copy code
               </span>
               <pre
@@ -212,30 +200,23 @@ export function PhoneInput() {
             </div>
           </article>
 
-          <article class="stack-md">
+          <article class="example-item stack-md">
             <h3 class="type-title">Date mask</h3>
             <div data-demo="date"></div>
             <div class="code-sample">
               <button
-                class="code-copy"
-                type="button"
-                data-copy-target="code-date"
+                class="icon-button code-copy"
                 interestfor="copy-date-tooltip"
                 aria-label="Copy date mask example"
-                style="anchor-name: --copy-date"
+                data-copy-target="code-date"
               >
-                <svg viewBox="0 0 20 20" aria-hidden="true">
+                <svg width="20" height="20" aria-hidden="true">
                   <use href="#icon-copy"></use>
                 </svg>
               </button>
-              <span
-                class="copy-tooltip type-subtitle"
-                id="copy-date-tooltip"
-                popover="hint"
-                role="tooltip"
-                style="position-anchor: --copy-date"
-                >Copy code</span
-              >
+              <span class="tooltip type-subtitle" id="copy-date-tooltip" popover="hint">
+                Copy code
+              </span>
               <pre
                 class="type-code"
               ><code id="code-date" class="language-tsx">const formatDate = (value: string) =&gt; {
@@ -265,29 +246,21 @@ export function DateInput() {
             </div>
           </article>
 
-          <article class="stack-md">
+          <article class="example-item stack-md">
             <h3 class="type-title">Text enforcement</h3>
             <div data-demo="uppercase"></div>
             <div class="code-sample">
               <button
-                class="code-copy"
-                type="button"
-                data-copy-target="code-enforcement"
+                class="icon-button code-copy"
                 interestfor="copy-enforcement-tooltip"
                 aria-label="Copy text enforcement example"
-                style="anchor-name: --copy-enforcement"
+                data-copy-target="code-enforcement"
               >
-                <svg viewBox="0 0 20 20" aria-hidden="true">
+                <svg width="20" height="20" aria-hidden="true">
                   <use href="#icon-copy"></use>
                 </svg>
               </button>
-              <span
-                class="copy-tooltip type-subtitle"
-                id="copy-enforcement-tooltip"
-                popover="hint"
-                role="tooltip"
-                style="position-anchor: --copy-enforcement"
-              >
+              <span class="tooltip type-subtitle" id="copy-enforcement-tooltip" popover="hint">
                 Copy code
               </span>
               <pre
