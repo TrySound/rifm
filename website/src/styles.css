@@ -119,7 +119,7 @@ body {
 /* Shared layout and typography */
 .type-display {
   font-family: var(--font-sans);
-  font-size: clamp(52px, 6vw, 72px);
+  font-size: clamp(46px, 6vw, 72px);
   font-weight: 700;
   line-height: 0.98;
   text-wrap: balance;
@@ -262,7 +262,7 @@ body {
   margin-inline: auto;
 
   @media (width <= 800px) {
-    width: min(100% - 30px, 620px);
+    width: min(calc(100% - 30px), 620px);
   }
 }
 
@@ -417,7 +417,7 @@ body {
   height: 34px;
 }
 
-pre[class*="language-"] {
+.code-sample pre {
   min-height: 100%;
   margin: 0;
   padding: 25px 62px 30px 26px;
@@ -426,6 +426,10 @@ pre[class*="language-"] {
   overflow-wrap: anywhere;
   color: var(--color-text-code);
   tab-size: 2;
+}
+
+.code-sample code {
+  white-space: inherit;
 }
 
 .token {
