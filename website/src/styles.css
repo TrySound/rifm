@@ -114,8 +114,6 @@ body {
   min-width: 320px;
   background: var(--color-canvas);
   padding-bottom: var(--space-lg);
-  /* clip decorative hero elements */
-  overflow-x: clip;
 }
 
 /* Shared layout and typography */
@@ -469,7 +467,7 @@ pre[class*="language-"] {
   &::before {
     content: "";
     position: absolute;
-    inset: 24px -25vw auto;
+    inset: 24px 0 auto;
     height: 610px;
     background-image:
       linear-gradient(var(--color-grid-line) 1px, transparent 1px),
@@ -488,17 +486,16 @@ pre[class*="language-"] {
 
 .hero-glow {
   position: absolute;
-  width: 580px;
+  width: min(580px, 100%);
   height: 520px;
   top: 50px;
-  left: 76%;
-  translate: -50% 0;
+  right: 0;
   background: radial-gradient(ellipse, var(--color-secondary-glow), transparent 65%);
   filter: blur(5px);
   pointer-events: none;
   @media (width <= 800px) {
     top: 380px;
-    left: 50%;
+    right: 0;
   }
 }
 
