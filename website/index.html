@@ -8,6 +8,16 @@
       content="Rifm is a tiny React input formatting and masking library that preserves cursor position."
     />
     <meta name="theme-color" content="#0b0c10" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rifm — React input format and mask" />
+    <meta
+      property="og:description"
+      content="A tiny React input formatting and masking library that preserves cursor position."
+    />
+    <meta property="og:url" content="https://trysound.github.io/rifm/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="https://trysound.github.io/rifm/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Rifm — React input format and mask</title>
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
@@ -40,7 +50,11 @@
               designed around the detail that matters: where your cursor lands next.
             </p>
 
-            <div class="field-container" aria-label="123456 formats as 123,456">
+            <div
+              class="field-container"
+              role="img"
+              aria-label="123456 formats as 123,456 while the cursor stays in place"
+            >
               <div class="story-value type-label" aria-hidden="true" data-story-value>
                 <span class="story-value-text">123</span>
                 <span class="story-value-separator">,</span>
@@ -67,7 +81,7 @@
 
       <section class="section-wrap triplet" data-align="center" aria-label="Package highlights">
         <article class="triplet-item stack-sm">
-          <strong class="type-label text-accent">~800b</strong>
+          <strong class="type-label text-accent">~1kb</strong>
           <span class="type-label">minified + gzip</span>
         </article>
         <article class="triplet-item stack-sm">
@@ -180,7 +194,7 @@ export function PriceInput() {
               </span>
               <pre
                 class="type-code"
-              ><code id="code-phone" class="language-tsx">import { AsYouType } from 'libphonenumber-js'
+              ><code id="code-phone" class="language-tsx">import { AsYouType } from 'libphonenumber-js/min'
 
 const formatPhone = (value: string) =&gt;
   new AsYouType('US')
@@ -291,8 +305,17 @@ export function AirportInput() {
     <footer class="section-wrap space-between">
       <p class="type-label">React input format &amp; mask. Released under MIT.</p>
       <p class="type-label row-md">
-        <a class="link" target="_blank" href="https://npmx.dev/package/rifm">npmx</a>
-        <a class="link" target="_blank" href="https://github.com/TrySound/rifm">GitHub</a>
+        <a class="link" target="_blank" rel="noreferrer" href="https://npmx.dev/package/rifm">
+          npmx
+        </a>
+        <a
+          class="link"
+          target="_blank"
+          rel="noreferrer"
+          href="https://github.com/TrySound/rifm"
+        >
+          GitHub
+        </a>
       </p>
     </footer>
 

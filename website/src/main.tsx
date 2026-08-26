@@ -1,13 +1,18 @@
-import "@oddbird/popover-polyfill";
-import "interestfor";
 import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
-import * as React from "react";
-import { createRoot } from "react-dom/client";
-import { useRifm } from "rifm";
-import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
+
+const loadInteractionPolyfills = async () => {
+  if (!("showPopover" in HTMLElement.prototype)) {
+    await import("@oddbird/popover-polyfill");
+  }
+  if (!("interestForElement" in HTMLButtonElement.prototype)) {
+    await import("interestfor");
+  }
+};
+
+void loadInteractionPolyfills();
 
 const resetTimers = new WeakMap<HTMLElement, number>();
 let feedbackGeneration = 0;
@@ -52,80 +57,7 @@ const copyFromButton = async (button: HTMLButtonElement) => {
   }
 };
 
-type DemoKind = "number" | "phone" | "date" | "uppercase";
-
-const demoConfig = {
-  number: {
-    label: "Invoice total",
-    prefix: "$",
-    initialValue: "240000",
-    placeholder: "0",
-    format: formatInteger,
-    accept: /\d/g,
-    inputMode: "numeric" as const,
-  },
-  phone: {
-    label: "US phone",
-    initialValue: "4155552671",
-    placeholder: "(000) 000-0000",
-    format: formatPhone,
-    accept: /\d/g,
-    inputMode: "tel" as const,
-  },
-  date: {
-    label: "Ship date",
-    initialValue: "12082026",
-    placeholder: "DD / MM / YYYY",
-    format: formatDate,
-    accept: /\d/g,
-    inputMode: "numeric" as const,
-  },
-  uppercase: {
-    label: "Airport code",
-    initialValue: "london heathrow",
-    placeholder: "TYPE A NAME",
-    format: (value: string) => value,
-    replace: formatUppercase,
-    accept: /[a-z ]/gi,
-    inputMode: "text" as const,
-  },
-};
-
-const DemoInput = ({ kind }: { kind: DemoKind }) => {
-  const config = demoConfig[kind];
-  const [value, setValue] = React.useState(config.initialValue);
-  const rifm = useRifm<HTMLInputElement>({
-    value,
-    onChange: setValue,
-    format: config.format,
-    accept: config.accept,
-    replace: "replace" in config ? config.replace : undefined,
-  });
-
-  return (
-    <span className="field-container">
-      {"prefix" in config && <span className="field-prefix type-label">{config.prefix}</span>}
-      <input
-        aria-label={config.label}
-        className="field-input type-label"
-        inputMode={config.inputMode}
-        placeholder={config.placeholder}
-        type="text"
-        value={rifm.value}
-        onChange={rifm.onChange}
-      />
-      <span className="type-label row-sm">
-        <span className="live-status" /> live
-        {/* use gap for fake padding */}
-        <span />
-      </span>
-    </span>
-  );
-};
-
-document.querySelectorAll<HTMLElement>("[data-demo]").forEach((element) => {
-  createRoot(element).render(<DemoInput kind={element.dataset.demo as DemoKind} />);
-});
+void import("./demos").then(({ mountDemos }) => mountDemos());
 
 const storyValue = document.querySelector<HTMLElement>("[data-story-value]");
 if (storyValue && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

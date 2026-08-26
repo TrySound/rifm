@@ -1,4 +1,4 @@
-import { AsYouType } from "libphonenumber-js";
+import { AsYouType } from "libphonenumber-js/min";
 
 const digitsOnly = (value: string) => value.replace(/\D/g, "");
 
