@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Rifm — React input format and mask</title>
+  <desc id="description">Formatting that keeps the cursor in place.</desc>
+  <defs>
+    <radialGradient id="violet-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8b6df6" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#8b6df6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lime-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#b8f34a" stop-opacity=".11"/>
+      <stop offset="1" stop-color="#b8f34a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="card-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#191a22"/>
+      <stop offset="1" stop-color="#111217"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#f3f2f7" stroke-opacity=".035"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="28" stdDeviation="32" flood-color="#050509" flood-opacity=".65"/>
+    </filter>
+    <clipPath id="canvas"><rect width="1200" height="630" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#canvas)">
+    <rect width="1200" height="630" fill="#0d0e13"/>
+    <rect width="1200" height="630" fill="url(#grid)"/>
+    <ellipse cx="945" cy="160" rx="460" ry="380" fill="url(#violet-glow)"/>
+    <ellipse cx="175" cy="610" rx="370" ry="260" fill="url(#lime-glow)"/>
+
+    <!-- Message -->
+    <text x="72" y="207" fill="#b8f34a" font-family="monospace" font-size="15" font-weight="700" letter-spacing="2.2">TINY · DEPENDENCY-FREE · CURSOR-AWARE</text>
+    <text x="65" y="335" fill="#f7f6fa" font-family="Arial, Helvetica, sans-serif" font-size="132" font-weight="700" letter-spacing="-5">RIFM</text>
+    <text x="75" y="402" fill="#aaa8b4" font-family="Arial, Helvetica, sans-serif" font-size="31">
+      <tspan x="75">A tiny React library for precise</tspan>
+      <tspan x="75" dy="42">input formatting and masking.</tspan>
+    </text>
+
+    <!-- Formatter card -->
+    <g transform="translate(676 188)" filter="url(#shadow)">
+      <rect width="452" height="224" rx="20" fill="url(#card-fill)" stroke="#32333e"/>
+      <text x="34" y="59" fill="#777681" font-family="monospace" font-size="14" letter-spacing="1.5">INVOICE TOTAL</text>
+      <rect x="32" y="79" width="388" height="108" rx="12" fill="#0d0e13" stroke="#454652" stroke-width="1.5"/>
+      <text x="58" y="147" fill="#777681" font-family="monospace" font-size="29">$</text>
+      <text x="94" y="149" fill="#b8f34a" font-family="monospace" font-size="36" font-weight="700">123,4</text>
+      <rect x="208" y="111" width="3" height="48" rx="1.5" fill="#b8f34a"/>
+      <text x="221" y="149" fill="#b8f34a" font-family="monospace" font-size="36" font-weight="700">56</text>
+    </g>
+  </g>
+</svg>
