@@ -12,43 +12,25 @@ import { formatDate, formatInteger, formatPhone, formatUppercase } from "./forma
 const resetTimers = new WeakMap<HTMLElement, number>();
 let feedbackGeneration = 0;
 
-const matchesState = (tooltip: HTMLElement, selector: string) => {
-  try {
-    return tooltip.matches(selector);
-  } catch {
-    return false;
-  }
-};
-
 const showFeedback = (tooltip: HTMLElement, message: string) => {
   const generation = ++feedbackGeneration;
-  const defaultMessage = tooltip.dataset.defaultMessage ?? tooltip.textContent ?? "Copy code";
+  const defaultMessage = tooltip.dataset.defaultMessage ?? tooltip.textContent;
   const status = document.getElementById("copy-status");
   tooltip.dataset.defaultMessage = defaultMessage;
   tooltip.textContent = message;
-  if (status) status.textContent = message;
-
-  if (!matchesState(tooltip, ":popover-open")) {
-    try {
-      tooltip.showPopover?.();
-    } catch {}
+  if (status) {
+    status.textContent = message;
   }
-
   const currentTimer = resetTimers.get(tooltip);
-  if (currentTimer) window.clearTimeout(currentTimer);
-
+  if (currentTimer) {
+    window.clearTimeout(currentTimer);
+  }
   resetTimers.set(
     tooltip,
     window.setTimeout(() => {
       tooltip.textContent = defaultMessage;
-      if (status && generation === feedbackGeneration) status.textContent = "";
-
-      const hasInterest =
-        tooltip.classList.contains("interest-target") || matchesState(tooltip, ":interest-target");
-      if (!hasInterest) {
-        try {
-          tooltip.hidePopover?.();
-        } catch {}
+      if (status && generation === feedbackGeneration) {
+        status.textContent = "";
       }
       resetTimers.delete(tooltip);
     }, 1400),

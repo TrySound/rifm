@@ -310,7 +310,68 @@ body {
   }
 }
 
+.icon-button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-input);
+  color: var(--color-text-muted);
+  background: var(--color-surface-control);
+  &:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+  &:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+[interestfor] {
+  interest-delay: 180ms 120ms;
+  --interest-delay: 180ms 120ms;
+}
+
+.tooltip {
+  position: fixed;
+  inset: 0;
+  width: max-content;
+  height: max-content;
+  z-index: 100;
+  margin: auto;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  background: var(--color-surface-control);
+  box-shadow: var(--shadow-floating);
+  &:popover-open {
+    animation: tooltip-in 120ms ease-out;
+  }
+  @supports (position-area: block-start) {
+    position-area: block-start center;
+    position-try-fallbacks: flip-block flip-inline;
+    inset: auto;
+    margin: 8px 0;
+  }
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    translate: 0 3px;
+  }
+}
+
+[data-demo] {
+  min-block-size: 52px;
+}
+
 .field-container {
+  box-sizing: border-box;
   height: 52px;
   display: flex;
   align-items: center;
@@ -342,87 +403,20 @@ body {
   background: transparent;
 }
 
-/* Declarative copy controls and anchored hint popovers */
-[interestfor] {
-  interest-delay: 180ms 120ms;
-  --interest-delay: 180ms 120ms;
-}
-.code-copy {
-  position: absolute;
-  z-index: 2;
-  top: 14px;
-  right: 14px;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 1px solid var(--color-border-control);
-  border-radius: var(--radius-input);
-  color: var(--color-text-muted);
-  background: var(--color-surface-control);
-  cursor: pointer;
-}
-.code-copy:hover,
-.code-copy:focus-visible {
-  color: var(--color-accent);
-  border-color: var(--color-accent-secondary);
-  outline: 0;
-}
-.code-copy svg {
-  width: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-}
-.copy-tooltip {
-  position: fixed;
-  inset: 0;
-  width: max-content;
-  height: max-content;
-  z-index: 100;
-  margin: auto;
-  padding: 7px 10px;
-  border: 1px solid var(--color-border-control);
-  border-radius: var(--radius-control);
-  color: var(--color-text);
-  background: var(--color-surface-control);
-  box-shadow: var(--shadow-floating);
-}
-.copy-tooltip:popover-open {
-  animation: tooltip-in 120ms ease-out;
-}
-.copy-tooltip.\:popover-open {
-  animation: tooltip-in 120ms ease-out;
-}
-@keyframes tooltip-in {
-  from {
-    opacity: 0;
-    translate: 0 3px;
-  }
-}
-@supports ((anchor-name: --copy-control) and (position-anchor: --copy-control) and
-  (position-area: block-start)) {
-  .copy-tooltip {
-    position-area: block-start center;
-    position-try: flip-block;
-    position-try-fallbacks: flip-block;
-    inset: auto;
-    margin: 0 0 8px;
-  }
-}
-@supports not selector(:popover-open) {
-  [popover]:not(.\:popover-open) {
-    display: none;
-  }
-}
-
 /* Source code and syntax highlighting */
 .code-sample {
   position: relative;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-input);
   background: var(--color-surface-code);
+}
+
+.code-copy {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
 }
 
 pre[class*="language-"] {
@@ -575,4 +569,9 @@ pre[class*="language-"] {
   @media (width <= 1000px) {
     grid-template-columns: 1fr;
   }
+}
+
+.example-item {
+  grid-row: span 3;
+  grid-template-rows: subgrid;
 }
