@@ -110,6 +110,29 @@ Both `useRifm(options)` and `<Rifm {...options}>` accept the following options.
 
 Pass both properties to the underlying input.
 
+## Number formatter
+
+A configurable, precision-safe number formatter is available from the `rifm/formatters/number` entry point. It returns `format` and `accept`, so it can be spread directly into RIFM options:
+
+```tsx
+import { createNumberFormatter } from "rifm/formatters/number";
+
+const euro = createNumberFormatter({
+  locales: "de-DE",
+  suffix: " EUR",
+  maximumFractionDigits: 2,
+  allowNegative: true,
+});
+
+const rifm = useRifm({
+  value,
+  onChange: setValue,
+  ...euro,
+});
+```
+
+Supported options are `locales`, `prefix`, `suffix`, `useGrouping`, `allowNegative`, `minimumFractionDigits`, and `maximumFractionDigits`. Prefixes and suffixes are inserted literally, so include any desired spacing, for example `prefix: "$"` or `suffix: " EUR"`. Fraction digit limits must be non-negative integers, and the minimum must not exceed the maximum. Locale-specific grouping and decimal separators come from `Intl.NumberFormat`; set `useGrouping` to `false` to disable grouping. The editable fraction remains a string, preserving trailing zeroes, while integer grouping uses `BigInt` to avoid precision loss.
+
 ## Accepted characters and caret behavior
 
 RIFM restores the caret by tracking the characters matched by `accept`. The formatter may insert, remove, or move separators, but it should preserve the order of those accepted characters.

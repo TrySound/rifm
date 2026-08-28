@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "rifm": ["./src"]
+      "rifm": ["./src"],
+      "rifm/formatters/number": ["./src/formatters/number"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,
