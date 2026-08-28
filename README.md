@@ -112,10 +112,10 @@ Pass both properties to the underlying input.
 
 ## Number formatter
 
-A configurable, precision-safe number formatter is available from the main `rifm` entry point. It returns `format` and `accept`, so it can be spread directly into RIFM options:
+A configurable, precision-safe number formatter is available from the `rifm/number` entry point. It returns `format` and `accept`, so it can be spread directly into RIFM options:
 
 ```tsx
-import { createNumberFormatter } from "rifm";
+import { createNumberFormatter } from "rifm/number";
 
 const euro = createNumberFormatter({
   locales: "de-DE",

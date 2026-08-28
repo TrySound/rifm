@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "rifm": ["./src"]
+      "rifm": ["./src"],
+      "rifm/number": ["./src/number"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,

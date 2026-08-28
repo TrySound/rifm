@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { createNumberFormatter } from "rifm";
+import { createNumberFormatter } from "rifm/number";
 
 describe("number formatter", () => {
   test("groups integers and preserves editable fractional values", () => {
