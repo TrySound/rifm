@@ -152,8 +152,11 @@
               ><code id="code-number" class="language-tsx">import { createNumberFormatter } from 'rifm/number'
 
 const number = createNumberFormatter({
+  locales: 'en-US',
   allowNegative: true,
-  maximumFractionDigits: 0,
+  useGrouping: true,
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
 })
 
 export function PriceInput() {
@@ -164,7 +167,7 @@ export function PriceInput() {
     ...number,
   })
 
-  return &lt;input {...rifm} inputMode="numeric" /&gt;
+  return &lt;input {...rifm} inputMode="decimal" /&gt;
 }</code></pre>
             </div>
           </article>
@@ -302,12 +305,7 @@ export function AirportInput() {
         <a class="link" target="_blank" rel="noreferrer" href="https://npmx.dev/package/rifm">
           npmx
         </a>
-        <a
-          class="link"
-          target="_blank"
-          rel="noreferrer"
-          href="https://github.com/TrySound/rifm"
-        >
+        <a class="link" target="_blank" rel="noreferrer" href="https://github.com/TrySound/rifm">
           GitHub
         </a>
       </p>

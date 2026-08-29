@@ -12,8 +12,14 @@ const demoConfig = {
     prefix: "$",
     initialValue: "240000",
     placeholder: "0",
-    inputMode: "numeric" as const,
-    ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
+    inputMode: "decimal" as const,
+    ...createNumberFormatter({
+      locales: "en-US",
+      allowNegative: true,
+      useGrouping: true,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }),
   },
   phone: {
     label: "US phone",
