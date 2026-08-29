@@ -2,11 +2,6 @@ import { AsYouType } from "libphonenumber-js/min";
 
 const digitsOnly = (value: string) => value.replace(/\D/g, "");
 
-export const formatInteger = (value: string) => {
-  const digits = digitsOnly(value);
-  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
-
 export const formatPhone = (value: string) => {
   const digits = digitsOnly(value).slice(0, 10);
   return new AsYouType("US").input(digits);

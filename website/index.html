@@ -126,7 +126,7 @@
       <div class="section-wrap stack-lg" id="get-started">
         <div class="heading-wrap stack-md">
           <span class="type-label text-accent">02 / GET STARTED</span>
-          <h2 class="type-heading">Configure for your needs.</h2>
+          <h2 class="type-heading">Try it live.</h2>
         </div>
 
         <div class="example-list stack-lg">
@@ -149,27 +149,22 @@
               </span>
               <pre
                 class="type-code"
-              ><code id="code-number" class="language-tsx">const formatNumber = (value: string) =&gt;
-  value
-    .replace(/\D/g, '')
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              ><code id="code-number" class="language-tsx">import { createNumberFormatter } from 'rifm/number'
+
+const number = createNumberFormatter({
+  allowNegative: true,
+  maximumFractionDigits: 0,
+})
 
 export function PriceInput() {
   const [value, setValue] = useState('240000')
   const rifm = useRifm({
     value,
     onChange: setValue,
-    format: formatNumber,
-    accept: /\d/g,
+    ...number,
   })
 
-  return (
-    &lt;label&gt;
-      Invoice total
-      &lt;span&gt;$&lt;/span&gt;
-      &lt;input {...rifm} inputMode="numeric" /&gt;
-    &lt;/label&gt;
-  )
+  return &lt;input {...rifm} inputMode="numeric" /&gt;
 }</code></pre>
             </div>
           </article>
