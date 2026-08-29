@@ -23,19 +23,6 @@ describe("number formatter", () => {
     expect("12.345,6".match(formatter.accept)?.join("")).toBe("12345,6");
   });
 
-  test("supports prefixes and suffixes", () => {
-    const formatter = createNumberFormatter({
-      locales: "en-US",
-      prefix: "$",
-      suffix: " EUR",
-      allowNegative: true,
-      maximumFractionDigits: 2,
-    });
-
-    expect(formatter.format("-$1234.5 EUR")).toBe("$-1,234.5 EUR");
-    expect(formatter.format("")).toBe("");
-  });
-
   test("supports signs, fixed precision, custom grouping, and disabled grouping", () => {
     expect(
       createNumberFormatter({

@@ -1,7 +1,5 @@
 export interface NumberFormatterOptions {
   locales?: string | string[];
-  prefix?: string;
-  suffix?: string;
   allowNegative?: boolean;
   useGrouping?: boolean;
   maximumFractionDigits?: number;
@@ -17,8 +15,6 @@ export interface NumberFormatter {
 export const createNumberFormatter = (options: NumberFormatterOptions = {}): NumberFormatter => {
   const {
     locales,
-    prefix = "",
-    suffix = "",
     allowNegative = false,
     useGrouping = true,
     maximumFractionDigits,
@@ -40,7 +36,10 @@ export const createNumberFormatter = (options: NumberFormatterOptions = {}): Num
   const decimalSeparator =
     partFormatter.formatToParts(1.1).find((part) => part.type === "decimal")?.value ?? ".";
   const acceptsFraction = maximumFractionDigits !== 0;
-  const accept = new RegExp(`[\\d${acceptsFraction ? decimalSeparator : ""}]`, "g");
+  const accept = new RegExp(
+    `[\\d${acceptsFraction ? decimalSeparator : ""}${allowNegative ? "\\-" : ""}]`,
+    "g",
+  );
 
   const format = (value: string): string => {
     const decimalIndex = acceptsFraction ? value.indexOf(decimalSeparator) : -1;
@@ -57,7 +56,7 @@ export const createNumberFormatter = (options: NumberFormatterOptions = {}): Num
     fraction = fraction.padEnd(minimumFractionDigits, "0");
     const grouped = integerFormatter.format(BigInt(`${negative ? "-" : ""}${integer}`));
     const decimal = decimalIndex >= 0 || minimumFractionDigits > 0;
-    return `${prefix}${grouped}${decimal ? `${decimalSeparator}${fraction}` : ""}${suffix}`;
+    return `${grouped}${decimal ? `${decimalSeparator}${fraction}` : ""}`;
   };
 
   return { format, accept };

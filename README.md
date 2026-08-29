@@ -134,8 +134,6 @@ The examples below use the `en-US` locale unless another locale is specified.
 | Option                  | Default         | Description                                                | Example                                            |
 | ----------------------- | --------------- | ---------------------------------------------------------- | -------------------------------------------------- |
 | `locales`               | Runtime default | Locale or locale fallback list used by `Intl.NumberFormat` | `{ locales: "de-DE" }`: `12345,6` → `12.345,6`     |
-| `prefix`                | `""`            | Text inserted before a non-empty formatted number          | `{ prefix: "$" }`: `1234.5` → `$1,234.5`           |
-| `suffix`                | `""`            | Text inserted after a non-empty formatted number           | `{ suffix: " EUR" }`: `1234.5` → `1,234.5 EUR`     |
 | `useGrouping`           | `true`          | Enables locale-specific integer grouping                   | `{ useGrouping: false }`: `1234.5` → `1234.5`      |
 | `allowNegative`         | `false`         | Preserves a minus sign when present                        | `{ allowNegative: true }`: `-1234.5` → `-1,234.5`  |
 | `minimumFractionDigits` | `0`             | Pads the fractional part with zeroes                       | `{ minimumFractionDigits: 2 }`: `12.5` → `12.50`   |
@@ -146,17 +144,16 @@ Options can be combined:
 ```ts
 const euro = createNumberFormatter({
   locales: "de-DE",
-  suffix: " EUR",
   allowNegative: true,
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
 
 euro.format("-12345,6");
-// "-12.345,60 EUR"
+// "-12.345,60"
 ```
 
-Prefixes and suffixes are literal, so include any desired spacing and avoid digits or the locale's decimal separator. Fraction digit limits must be non-negative integers, and the minimum must not exceed the maximum.
+Fraction digit limits must be non-negative integers, and the minimum must not exceed the maximum.
 
 ## Accepted characters and caret behavior
 
