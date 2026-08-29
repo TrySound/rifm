@@ -1,7 +1,8 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { useRifm } from "rifm";
-import { formatDate, formatInteger, formatPhone, formatUppercase } from "./formatters";
+import { createNumberFormatter } from "rifm/number";
+import { formatDate, formatPhone, formatUppercase } from "./formatters";
 
 type DemoKind = "number" | "phone" | "date" | "uppercase";
 
@@ -11,9 +12,8 @@ const demoConfig = {
     prefix: "$",
     initialValue: "240000",
     placeholder: "0",
-    format: formatInteger,
-    accept: /\d/g,
     inputMode: "numeric" as const,
+    ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
   },
   phone: {
     label: "US phone",
