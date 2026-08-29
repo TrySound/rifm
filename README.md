@@ -110,6 +110,51 @@ Both `useRifm(options)` and `<Rifm {...options}>` accept the following options.
 
 Pass both properties to the underlying input.
 
+## Number formatter
+
+Import `createNumberFormatter` from `rifm/number`. With no options, it uses the runtime's default locale, groups thousands, accepts positive numbers, and preserves any number of fractional digits:
+
+```tsx
+import { createNumberFormatter } from "rifm/number";
+
+const number = createNumberFormatter();
+const rifm = useRifm({
+  value,
+  onChange: setValue,
+  ...number,
+});
+```
+
+The returned `{ format, accept }` object can be spread into either `useRifm` or `<Rifm>`. Formatting is string-based, so editable states such as `1.` and `1.20` are preserved and large integers do not lose precision.
+
+### Number formatter options
+
+The examples below use the `en-US` locale unless another locale is specified.
+
+| Option                  | Default         | Description                                                | Example                                            |
+| ----------------------- | --------------- | ---------------------------------------------------------- | -------------------------------------------------- |
+| `locales`               | Runtime default | Locale or locale fallback list used by `Intl.NumberFormat` | `{ locales: "de-DE" }`: `12345,6` → `12.345,6`     |
+| `useGrouping`           | `true`          | Enables locale-specific integer grouping                   | `{ useGrouping: false }`: `1234.5` → `1234.5`      |
+| `allowNegative`         | `false`         | Preserves a minus sign when present                        | `{ allowNegative: true }`: `-1234.5` → `-1,234.5`  |
+| `minimumFractionDigits` | `0`             | Pads the fractional part with zeroes                       | `{ minimumFractionDigits: 2 }`: `12.5` → `12.50`   |
+| `maximumFractionDigits` | Unlimited       | Truncates the fractional part to this length               | `{ maximumFractionDigits: 2 }`: `12.345` → `12.34` |
+
+Options can be combined:
+
+```ts
+const euro = createNumberFormatter({
+  locales: "de-DE",
+  allowNegative: true,
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+euro.format("-12345,6");
+// "-12.345,60"
+```
+
+Fraction digit limits must be non-negative integers, and the minimum must not exceed the maximum.
+
 ## Accepted characters and caret behavior
 
 RIFM restores the caret by tracking the characters matched by `accept`. The formatter may insert, remove, or move separators, but it should preserve the order of those accepted characters.

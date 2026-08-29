@@ -1,5 +1,6 @@
 import { afterEach, expect, it, test } from "vitest";
 import { formatFixedPointNumber, formatFloatingPointNumber, formatPhone } from "./format";
+import { createNumberFormatter } from "../src/number";
 import { BrowserExec, createBrowserExec } from "./utils/browser-exec";
 
 let exec: BrowserExec | null = null;
@@ -32,6 +33,22 @@ test("format works with real browser input", async () => {
   expect(await exec({ type: "BACKSPACE" })).toBe("|2’345");
   expect(await exec({ type: "PUT_SYMBOL", payload: "1" })).toBe("1|2’345");
   expect(await exec({ type: "PUT_SYMBOL", payload: "x" })).toBe("1|2’345");
+});
+
+test("keeps the caret after a negative sign", async () => {
+  exec = createBrowserExec({
+    ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
+  });
+
+  expect(await exec({ type: "PUT_SYMBOL", payload: "-" })).toBe("-|");
+
+  exec.cleanup();
+  exec = createBrowserExec({
+    ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
+    initialValue: "123",
+  });
+
+  expect(await exec({ type: "PUT_SYMBOL", payload: "-" })).toBe("-|123");
 });
 
 test("format with custom accept works with real browser input", async () => {

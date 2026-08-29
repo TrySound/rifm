@@ -21,10 +21,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./number": {
+      "types": "./dist/number.d.ts",
+      "import": "./dist/number.js"
     }
   },
   "scripts": {
-    "build": "tsdown src/index.ts --format esm --target es2022 --platform neutral --dts --clean",
+    "build": "tsdown src/index.ts src/number.ts --format esm --target es2022 --platform neutral --dts --clean",
     "test:unit": "vitest run --project node",
     "test:browser": "vitest run --project browser",
     "test": "pnpm run test:ts && pnpm run test:unit && pnpm run test:browser",
