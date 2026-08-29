@@ -45,7 +45,7 @@ export const createNumberFormatter = (options: NumberFormatterOptions = {}): Num
     const decimalIndex = acceptsFraction ? value.indexOf(decimalSeparator) : -1;
     const integerSource = decimalIndex < 0 ? value : value.slice(0, decimalIndex);
     const fractionSource = decimalIndex < 0 ? "" : value.slice(decimalIndex + 1);
-    const negative = allowNegative && value.includes("-");
+    const negative = allowNegative && value.startsWith("-");
     let integer = integerSource.replace(/\D/g, "").replace(/^0+(?=\d)/, "");
     let fraction = fractionSource.replace(/\D/g, "");
 
