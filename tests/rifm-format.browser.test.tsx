@@ -35,7 +35,7 @@ test("format works with real browser input", async () => {
   expect(await exec({ type: "PUT_SYMBOL", payload: "x" })).toBe("1|2’345");
 });
 
-test("keeps the caret after a negative sign", async () => {
+test("handles negative signs without moving or truncating digits", async () => {
   exec = createBrowserExec({
     ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
   });
@@ -49,6 +49,15 @@ test("keeps the caret after a negative sign", async () => {
   });
 
   expect(await exec({ type: "PUT_SYMBOL", payload: "-" })).toBe("-|123");
+
+  exec.cleanup();
+  exec = createBrowserExec({
+    ...createNumberFormatter({ allowNegative: true, maximumFractionDigits: 0 }),
+    initialValue: "12345",
+  });
+
+  expect(await exec({ type: "MOVE_CARET", payload: 2 })).toBe("12|,345");
+  expect(await exec({ type: "PUT_SYMBOL", payload: "-" })).toBe("12|,345");
 });
 
 test("format with custom accept works with real browser input", async () => {

@@ -24,14 +24,15 @@ describe("number formatter", () => {
   });
 
   test("supports signs, fixed precision, custom grouping, and disabled grouping", () => {
-    expect(
-      createNumberFormatter({
-        locales: "en-IN",
-        allowNegative: true,
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format("-$12345678.9"),
-    ).toBe("-1,23,45,678.90");
+    const signed = createNumberFormatter({
+      locales: "en-IN",
+      allowNegative: true,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    expect(signed.format("-$12345678.9")).toBe("-1,23,45,678.90");
+    expect(signed.format("1234-5678.9")).toBe("1,23,45,678.90");
 
     expect(
       createNumberFormatter({ useGrouping: false, maximumFractionDigits: 0 }).format("12,345"),
