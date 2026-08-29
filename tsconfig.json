@@ -9,11 +9,6 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "rifm": ["./src"],
-      "rifm/number": ["./src/number"]
-    },
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

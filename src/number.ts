@@ -26,7 +26,7 @@ export const createNumberFormatter = (options: NumberFormatterOptions = {}): Num
   } = options;
 
   // Latin digits make the result compatible with RIFM's digit-based caret tracking.
-  const latin = { numberingSystem: "latn" } as Intl.NumberFormatOptions;
+  const latin = { numberingSystem: "latn" };
   const integerFormatter = new Intl.NumberFormat(locales, {
     ...latin,
     useGrouping,
@@ -36,7 +36,7 @@ export const createNumberFormatter = (options: NumberFormatterOptions = {}): Num
     ...latin,
     useGrouping: true,
     minimumFractionDigits: 1,
-  }) as Intl.NumberFormat;
+  });
   const decimalSeparator =
     partFormatter.formatToParts(1.1).find((part) => part.type === "decimal")?.value ?? ".";
   const acceptsFraction = maximumFractionDigits !== 0;
