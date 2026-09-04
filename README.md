@@ -155,6 +155,32 @@ euro.format("-12345,6");
 
 Fraction digit limits must be non-negative integers, and the minimum must not exceed the maximum.
 
+## Date formatter
+
+Import `createDateFormatter` from `rifm/date`. It uses the locale's numeric date field order and separators while preserving incomplete input:
+
+```tsx
+import { createDateFormatter } from "rifm/date";
+
+const date = createDateFormatter({
+  locales: "en-US",
+  year: "long",
+});
+
+const rifm = useRifm({
+  value,
+  onChange: setValue,
+  ...date,
+  mask: true,
+});
+```
+
+The `year` option accepts `"short"` for two digits or `"long"` for four digits and defaults to `"long"`. For example, `120826` becomes `12/08/26` with a short year, while `12082026` becomes `12/08/2026` with a long year.
+
+Leave out `mask` for insertion-style formatting. Set `mask: true` for replacement-style editing of occupied date positions. The formatter is structural and does not validate whether a completed value is a real calendar date.
+
+As with other RIFM inputs, use `type="text"` and `inputMode="numeric"`, not `type="date"`.
+
 ## Accepted characters and caret behavior
 
 RIFM restores the caret by tracking the characters matched by `accept`. The formatter may insert, remove, or move separators, but it should preserve the order of those accepted characters.
