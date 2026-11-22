@@ -44,4 +44,4 @@ jobs:
       - name: Typecheck website
         run: pnpm --dir website typecheck
       - name: Build website
-        run: pnpm --dir website build --base /rifm/
+        run: pnpm --dir website build

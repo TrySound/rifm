@@ -35,7 +35,7 @@ jobs:
       - name: Build package
         run: pnpm run build
       - name: Build website
-        run: pnpm --dir website build --base /
+        run: pnpm --dir website build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
