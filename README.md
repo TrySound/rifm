@@ -2,7 +2,7 @@
 
 A small, dependency-free React hook and component for building formatted and masked inputs without losing the cursor position.
 
-[Live demo](https://trysound.github.io/rifm)
+[Live demo](https://rifm.trysound.io/)
 
 ## Why RIFM?
 

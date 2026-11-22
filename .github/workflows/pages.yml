@@ -31,12 +31,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Configure Pages
-        id: pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Build package
         run: pnpm run build
       - name: Build website
-        run: pnpm --dir website build --base "${{ steps.pages.outputs.base_path }}/"
+        run: pnpm --dir website build --base /
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
