@@ -18,7 +18,11 @@ export default defineConfig({
         test: {
           name: "node",
           environment: "node",
-          include: ["tests/formatters.test.ts", "tests/test-layout-warn.test.tsx"],
+          include: [
+            "tests/formatters.test.ts",
+            "tests/*-formatter.test.ts",
+            "tests/test-layout-warn.test.tsx",
+          ],
         },
       },
       {
